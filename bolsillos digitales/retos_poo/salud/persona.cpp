@@ -7,7 +7,7 @@ class persona
 {
 
 private:
-    char tipo_doc;
+    string tipo_doc;
     int long long documento;
     string nombre;
     string apellido;
@@ -17,21 +17,11 @@ private:
     bool sexo;
 
 public:
-    /*persona(char a, int long long b, string c, string d, float e, float f, int g, bool h)
-    {
-        tipo_doc = a;
-        documento = b;
-        nombre = c;
-        apellido = d;
-        peso = e;
-        estatura = f;
-        edad = g;
-        sexo = h;
-    }*/
+    persona() {}
 
     void pedir_dato()
     {
-        char aux_a;
+        string aux_a;
         int long long aux_b;
         string aux_c;
         string aux_d;
@@ -60,11 +50,8 @@ public:
         persona aux_obj(char aux_a, int long long aux_b, string aux_c, string aux_d, float aux_e, float aux_f, int aux_g, bool aux_h);
     }
 
-    void peso_actual(persona aux)
+    void peso_actual(float peso, float estatura)
     {
-
-        float peso = aux.peso;
-        float estatura = aux.estatura;
         float peso_final = peso / estatura;
 
         if (peso_final < 20)
@@ -83,17 +70,18 @@ public:
 
     void mostrar_persona(persona aux)
     {
+        float a = aux.estatura;
+        float b = aux.peso;
 
-        cout << "tipo documento " << aux[i].tipo_doc << endl;
-        cout << "documento " << aux[i].documento << endl;
-        cout << "nombre " << aux[i].nombre << endl;
-        cout << "apellido " << aux[i].apellido << endl;
-        cout << "peso " << aux[i].peso << endl;
-        cout << "estatura " << aux[i].estatura << endl;
-        cout << "edad " << aux[i].edad << endl;
-        cout << "sexo " << aux[i].sexo << endl;
-
-        aux[i].peso_actual(aux[i].peso, aux[i].estatura);
+        cout << "tipo documento " << aux.tipo_doc << endl;
+        cout << "documento " << aux.documento << endl;
+        cout << "nombre " << aux.nombre << endl;
+        cout << "apellido " << aux.apellido << endl;
+        cout << "peso " << b << endl;
+        cout << "estatura " << a << endl;
+        cout << "edad " << aux.edad << endl;
+        cout << "sexo " << aux.sexo << endl;
+        aux.peso_actual(b, a);
     }
 };
 
@@ -101,9 +89,8 @@ int main()
 {
 
     persona persona1;
-
-    persona1.pedir_dato;
-    persona1.mostrar_persona;
+    persona1.pedir_dato();
+    persona1.mostrar_persona(persona1);
 
     return 0;
 }
