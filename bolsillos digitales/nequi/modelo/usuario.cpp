@@ -1,11 +1,11 @@
-#include <iostream>
+#include <iostream>//el iostream de toda la vida
 
-using namespace std;
+using namespace std;//lo mismo el espacio de trabajo
 
-class usuario
+class usuario//clase usuario
 {
 
-private:
+private://atributos de la clase
     string nombre_usuario;
     string apellido_usuario;
     string correo_usuario;
@@ -15,7 +15,7 @@ private:
     int contrasena;
 
 public:
-    usuario(string nombre_usuario,
+    usuario(string nombre_usuario,//constructor no vacio de la clase
             string apellido_usuario,
             string correo_usuario,
             int tipo_documento,
@@ -33,7 +33,7 @@ public:
         this->contrasena = contrasena;
     }
 
-    
+    // --------------------------------------- setters--------------------------------------------------------------------
     void setNombreUsuario(const string &nombre)
     {
         nombre_usuario = nombre;
@@ -69,7 +69,7 @@ public:
         this->contrasena = contrasena;
     }
 
-    
+    // ------------------------------- getters ----------------------------------------------
     string getNombreUsuario() const
     {
         return nombre_usuario;
