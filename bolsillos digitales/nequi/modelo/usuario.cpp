@@ -32,4 +32,76 @@ public:
         this->numero_celular = numero_celular;
         this->contrasena = contrasena;
     }
+
+    
+    void setNombreUsuario(const string &nombre)
+    {
+        nombre_usuario = nombre;
+    }
+
+    void setApellidoUsuario(const string &apellido)
+    {
+        apellido_usuario = apellido;
+    }
+
+    void setCorreoUsuario(const string &correo)
+    {
+        correo_usuario = correo;
+    }
+
+    void setTipoDocumento(int tipo)
+    {
+        tipo_documento = tipo;
+    }
+
+    void setNumeroDocumento(long long numero)
+    {
+        numero_documento = numero;
+    }
+
+    void setNumeroCelular(long long numero)
+    {
+        numero_celular = numero;
+    }
+
+    void setContrasena(int contrasena)
+    {
+        this->contrasena = contrasena;
+    }
+
+    
+    string getNombreUsuario() const
+    {
+        return nombre_usuario;
+    }
+
+    string getApellidoUsuario() const
+    {
+        return apellido_usuario;
+    }
+
+    string getCorreoUsuario() const
+    {
+        return correo_usuario;
+    }
+
+    int getTipoDocumento() const
+    {
+        return tipo_documento;
+    }
+
+    long long getNumeroDocumento() const
+    {
+        return numero_documento;
+    }
+
+    long long getNumeroCelular() const
+    {
+        return numero_celular;
+    }
+
+    int getContrasena() const
+    {
+        return contrasena;
+    }
 };
