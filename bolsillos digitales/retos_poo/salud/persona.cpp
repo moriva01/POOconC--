@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -8,7 +7,7 @@ class persona
 
 private:
     string tipo_doc;
-    int long long documento;
+    long long documento;
     string nombre;
     string apellido;
     float peso;
@@ -19,78 +18,34 @@ private:
 public:
     persona() {}
 
-    void pedir_dato()
+    static persona ingresar_persona()
     {
-        string aux_a;
-        int long long aux_b;
-        string aux_c;
-        string aux_d;
-        float aux_e;
-        float aux_f;
-        int aux_g;
-        bool aux_h;
+        persona persona;
+        cout << "tipo de documento: ";
+        cin >> persona.tipo_doc;
+        cout << "numero de documento: ";
+        cin >> persona.documento;
+        cout << "nombre: ";
+        cin >> persona.nombre;
+        cout << "apellido: ";
+        cin >> persona.apellido;
+        cout << "peso (kg): ";
+        cin >> persona.peso;
+        cout << "estatura (cm): ";
+        cin >> persona.estatura;
+        cout << "edad: ";
+        cin >> persona.edad;
+        cout << "sexo: --0 para femenino"<<endl<<"--1 para masculino): ";
+        cin >> persona.sexo;
 
-        cout << "tipo documento" << endl;
-        cin >> aux_a;
-        cout << "documento" << endl;
-        cin >> aux_b;
-        cout << "nombre" << endl;
-        cin >> aux_c;
-        cout << "apellido" << endl;
-        cin >> aux_d;
-        cout << "peso" << endl;
-        cin >> aux_e;
-        cout << "estatura" << endl;
-        cin >> aux_f;
-        cout << "edad" << endl;
-        cin >> aux_g;
-        cout << "sexo" << endl;
-        cin >> aux_h;
-
-        persona aux_obj(char aux_a, int long long aux_b, string aux_c, string aux_d, float aux_e, float aux_f, int aux_g, bool aux_h);
-    }
-
-    void peso_actual(float peso, float estatura)
-    {
-        float peso_final = peso / estatura;
-
-        if (peso_final < 20)
-        {
-            cout << "peso debajo de lo ideal" << endl;
-        }
-        else if (peso_final <= 25 && peso_final > 20)
-        {
-            cout << "peso es ideal" << endl;
-        }
-        else
-        {
-            cout << "sobre peso" << endl;
-        }
-    }
-
-    void mostrar_persona(persona aux)
-    {
-        float a = aux.estatura;
-        float b = aux.peso;
-
-        cout << "tipo documento " << aux.tipo_doc << endl;
-        cout << "documento " << aux.documento << endl;
-        cout << "nombre " << aux.nombre << endl;
-        cout << "apellido " << aux.apellido << endl;
-        cout << "peso " << b << endl;
-        cout << "estatura " << a << endl;
-        cout << "edad " << aux.edad << endl;
-        cout << "sexo " << aux.sexo << endl;
-        aux.peso_actual(b, a);
+        return persona;
     }
 };
 
 int main()
 {
 
-    persona persona1;
-    persona1.pedir_dato();
-    persona1.mostrar_persona(persona1);
+    persona persona1 = persona::ingresar_persona();
 
     return 0;
 }
