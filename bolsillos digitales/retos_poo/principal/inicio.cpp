@@ -1,3 +1,6 @@
+//                                                           ivan david moreno vargas
+
+
 #include "../salud/persona.h"//agregar la clase persona con todos sus metodos y atributos
 
 
