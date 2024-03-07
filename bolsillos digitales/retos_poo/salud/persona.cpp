@@ -100,9 +100,11 @@ public:
         }
 
         cout << "-------------------------------------------------- " << endl;
-        cout << "segun su masa corporal:" << endl;
+        cout << "------------- segun su masa corporal:" << endl;
 
         aux.calcularmc(aux.peso, aux.estatura);
+
+        cout << "------------- segun su edad:" << endl;
         aux.mayorEdad(aux.edad);
     }
 };
