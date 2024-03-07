@@ -1,4 +1,4 @@
-#include "salud/persona.exe"
+#include "../salud/persona.h"
 
 using namespace std;
 
