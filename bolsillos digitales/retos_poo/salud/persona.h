@@ -1,3 +1,8 @@
+//                                                           ivan david moreno vargas
+
+
+
+//cambiamos a .h para poder importar en la otra clase
 #include <iostream>//uso de cin y cout
 
 using namespace std;//espacio std para poder ingresar datos
