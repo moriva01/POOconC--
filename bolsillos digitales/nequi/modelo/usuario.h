@@ -1,3 +1,5 @@
+//                 se cambia a .h para poder importardesde otros paquetes 
+
 #include <iostream>//el iostream de toda la vida
 
 using namespace std;//lo mismo el espacio de trabajo
