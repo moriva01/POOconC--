@@ -109,7 +109,7 @@ public:
     }
 };
 
-int main()
+/*int main()
 {
 
     persona persona1 = persona::pedirDatos();
@@ -117,4 +117,4 @@ int main()
     persona1.mostrarPersona(persona1);
 
     return 0;
-}
+}*/
