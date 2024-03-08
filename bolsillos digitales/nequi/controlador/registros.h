@@ -1,13 +1,13 @@
-#include "../modelo/usuario.h"
-#include <vector>
+#include "../modelo/usuario.h"// importa modelo (clase usuario)
+#include <vector>//clase vector para poder usar listas dinamicas
 
-vector<usuario> lista_usuario;
-usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995, 0, 0, 0, 0);
+vector<usuario> lista_usuario;//lista de tipo objeto para los usuarios
+usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995, 0, 0, 0, 0);//usuario que ya esta registrado
 
-void registrar_usuario()
+void registrar_usuario()//metodo registrar suario
 {
 
-    int tipo, contra;
+    int tipo, contra;//pide atributos del usuario
     string nombre, apellido, correo;
     int long long n_doc, n_cel;
     cout << "elige tu tipo de documento" << endl
@@ -18,10 +18,10 @@ void registrar_usuario()
     cout << "digite su numero de documento: " << endl;
     cin >> n_doc;
 
-    for (usuario p : lista_usuario)
+    for (usuario p : lista_usuario)//recorre la lista
     {
 
-        while (n_doc == p.getNumeroDocumento())
+        while (n_doc == p.getNumeroDocumento())//mira si el documento ya esta registrado
         {
             cout << "el numero de documento ya esta registrado" << endl;
             cout << "digite su numero de documento: " << endl;
@@ -38,10 +38,10 @@ void registrar_usuario()
     cout << "digite su numero de celular: " << endl;
     cin >> n_cel;
 
-    for (usuario p : lista_usuario)
+    for (usuario p : lista_usuario)//recorre la lista
     {
 
-        while (n_cel == p.getNumeroCelular())
+        while (n_cel == p.getNumeroCelular())//mira si el numero celular ya esta registrado
         {
             cout << "el numero de celular ya esta registrado" << endl;
             cout << "digite su numero de celular: " << endl;
@@ -51,24 +51,24 @@ void registrar_usuario()
     cout << "registre una contraseña de 4 digitos" << endl;
     cin >> contra;
 
-    while (contra < 1000 || contra > 9999)
+    while (contra < 1000 || contra > 9999)//revisa que la contraseña tenga 4 digitos
     {
         cout << "la contraseña debe contener 4 digitos" << endl;
         cout << "registre una contraseña de 4 digitos" << endl;
         cin >> contra;
     }
 
-    usuario aux1(nombre, apellido, correo, tipo, n_doc, n_cel, contra, 0, 0, 0, 0);
+    usuario aux1(nombre, apellido, correo, tipo, n_doc, n_cel, contra, 0, 0, 0, 0);//crea objeto auxiliar
 
-    lista_usuario.push_back(aux1);
+    lista_usuario.push_back(aux1);//lo pasa a la lista
 }
 
-void acceder_app()
+void acceder_app()//entrar a la aplicacion
 {
 
-    int long long numero, codigo = 0;
+    int long long numero, codigo = 0;//pide numero y contraseña
     int contra;
-    bool bandera = false;
+    bool bandera = false;//por si el user no esta registrado
 
     cout << "digite su numero de celular: " << endl;
     cin >> numero;
@@ -76,16 +76,16 @@ void acceder_app()
     cout << "digite su contraseña: " << endl;
     cin >> contra;
 
-    for (usuario p : lista_usuario)
+    for (usuario p : lista_usuario)//recorre la lista
     {
 
-        if (numero == p.getNumeroCelular() && contra == p.getContrasena())
+        if (numero == p.getNumeroCelular() && contra == p.getContrasena())//revisa si el correo y la contraseña estan registrados
         {
             bandera = true;
 
             int eleccion;
 
-            while (true)
+            while (true)//si esta registrado muestra el menu del usuario
             {
 
                 cout << "----------- Hola," << p.getNombreUsuario() << " " << p.getApellidoUsuario() << endl;
@@ -127,7 +127,7 @@ void acceder_app()
         }
     }
 
-    if (bandera = false)
+    if (bandera = false)//si el usuario no esta registrado
     {
 
         cout << "el usuario no existe, debe registarse!" << endl;

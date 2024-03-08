@@ -21,7 +21,7 @@ private: // atributos de la clase
     float saldo;
 
 public:
-    usuario(string nombre_usuario, // constructor no vacio de la clase
+    usuario(string nombre_usuario, // constructor con parametros de la clase
             string apellido_usuario,
             string correo_usuario,
             int tipo_documento,
