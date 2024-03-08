@@ -18,10 +18,11 @@ int main()
         switch (eleccion)
         {
         case 1:
-            registrar_usuario(lista_usuario);
+            registrar_usuario();
             break;
 
         case 2:
+            acceder_app();
             break;
 
         default:

@@ -4,7 +4,7 @@
 vector<usuario> lista_usuario;
 usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995);
 
-void registrar_usuario(vector<usuario> auxiliar)
+void registrar_usuario()
 {
 
     int tipo, contra;
@@ -18,7 +18,7 @@ void registrar_usuario(vector<usuario> auxiliar)
     cout << "digite su numero de documento: " << endl;
     cin >> n_doc;
 
-    for (usuario p : auxiliar)
+    for (usuario p : lista_usuario)
     {
 
         while (n_doc == p.getNumeroDocumento())
@@ -38,7 +38,7 @@ void registrar_usuario(vector<usuario> auxiliar)
     cout << "digite su numero de celular: " << endl;
     cin >> n_cel;
 
-    for (usuario p : auxiliar)
+    for (usuario p : lista_usuario)
     {
 
         while (n_cel == p.getNumeroCelular())
@@ -60,5 +60,34 @@ void registrar_usuario(vector<usuario> auxiliar)
 
     usuario aux1(nombre, apellido, correo, tipo, n_doc, n_cel, contra);
 
-    auxiliar.push_back(aux1);
+    lista_usuario.push_back(aux1);
+}
+
+void acceder_app()
+{
+
+    int long long numero, codigo = 0;
+    int contra;
+    bool bandera = false;
+
+    cout << "digite su numero de celular: " << endl;
+    cin >> numero;
+
+    cout << "digite su contraseña: " << endl;
+    cin >> contra;
+
+    for (usuario p : lista_usuario)
+    {
+
+        
+        if (numero == p.getNumeroCelular() && contra == p.getContrasena())
+        {
+            bandera=true;
+        }
+    }
+
+    if(bandera=false){
+
+        cout<<"el usuario no existe, debe registarse!"<<endl;
+    }
 }
