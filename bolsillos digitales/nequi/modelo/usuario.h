@@ -15,6 +15,10 @@ private: // atributos de la clase
     int long long numero_documento;
     int long long numero_celular;
     int contrasena;
+    float colchon;
+    float meta;
+    float bolsillo;
+    float saldo;
 
 public:
     usuario(string nombre_usuario, // constructor no vacio de la clase
@@ -23,7 +27,11 @@ public:
             int tipo_documento,
             int long long numero_documento,
             int long long numero_celular,
-            int contrasena)
+            int contrasena,
+            float colchon,
+            float meta,
+            float bolsillo,
+            float saldo)
     {
 
         this->nombre_usuario = nombre_usuario;
@@ -33,9 +41,13 @@ public:
         this->numero_documento = numero_documento;
         this->numero_celular = numero_celular;
         this->contrasena = contrasena;
+        this->colchon = colchon;
+        this->meta = meta;
+        this->bolsillo = bolsillo;
+        this->saldo = saldo;
     }
 
-    usuario() {}//constructor vacio
+    usuario() {} // constructor vacio
     // --------------------------------------- setters--------------------------------------------------------------------
     void setNombreUsuario(const string &nombre)
     {
@@ -72,6 +84,25 @@ public:
         this->contrasena = contrasena;
     }
 
+    void setColchon(float colchon)
+    {
+        this->colchon = colchon;
+    }
+
+    void setMeta(float meta)
+    {
+        this->meta = meta;
+    }
+
+    void setBolsillo(float bolsillo)
+    {
+        this->bolsillo = bolsillo;
+    }
+
+    void setSaldo(float saldo)
+    {
+        this->saldo = saldo;
+    }
     // ------------------------------- getters ----------------------------------------------
     string getNombreUsuario() const
     {
@@ -106,5 +137,22 @@ public:
     int getContrasena() const
     {
         return contrasena;
+    }
+
+    float getColchon() const
+    {
+        return colchon;
+    }
+    float getMeta() const
+    {
+        return meta;
+    }
+    float getBolsillo() const
+    {
+        return bolsillo;
+    }
+    float getSaldo() const
+    {
+        return saldo;
     }
 };

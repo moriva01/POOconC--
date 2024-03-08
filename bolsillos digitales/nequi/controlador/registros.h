@@ -2,7 +2,7 @@
 #include <vector>
 
 vector<usuario> lista_usuario;
-usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995);
+usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995, 0, 0, 0, 0);
 
 void registrar_usuario()
 {
@@ -58,7 +58,7 @@ void registrar_usuario()
         cin >> contra;
     }
 
-    usuario aux1(nombre, apellido, correo, tipo, n_doc, n_cel, contra);
+    usuario aux1(nombre, apellido, correo, tipo, n_doc, n_cel, contra, 0, 0, 0, 0);
 
     lista_usuario.push_back(aux1);
 }
@@ -79,15 +79,54 @@ void acceder_app()
     for (usuario p : lista_usuario)
     {
 
-        
         if (numero == p.getNumeroCelular() && contra == p.getContrasena())
         {
-            bandera=true;
+            bandera = true;
+
+            int eleccion;
+
+            while (true)
+            {
+
+                cout << "----------- Hola," << p.getNombreUsuario() << " " << p.getApellidoUsuario() << endl;
+                cout << "-- Saldo disponible: " << p.getSaldo() << endl;
+                cout << "-------------------------------------------------------------" << endl;
+                cout << "--- 1- Colchon                                            ---" << endl;
+                cout << "--- 2- meta                                               ---" << endl;
+                cout << "--- 3- bolsillo                                           ---" << endl;
+                cout << "--- 4- recarga                                            ---" << endl;
+                cout << "--- 5- saca plata                                         ---" << endl;
+                cout << "--- 6- ver movimientos                                    ---" << endl;
+                cout << "--- 7- Salir                                              ---" << endl;
+                cout << "-------------------------------------------------------------" << endl;
+                cin >> eleccion;
+                switch (eleccion)
+                {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    return;
+                    break;
+
+                default:
+                    cout << "opcion no valida" << endl;
+                    break;
+                }
+            }
         }
     }
 
-    if(bandera=false){
+    if (bandera = false)
+    {
 
-        cout<<"el usuario no existe, debe registarse!"<<endl;
+        cout << "el usuario no existe, debe registarse!" << endl;
     }
 }
