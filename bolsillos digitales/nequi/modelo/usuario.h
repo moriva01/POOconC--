@@ -1,13 +1,13 @@
-//                 se cambia a .h para poder importardesde otros paquetes 
+//                 se cambia a .h para poder importardesde otros paquetes
 
-#include <iostream>//el iostream de toda la vida
+#include <iostream> //el iostream de toda la vida
 
-using namespace std;//lo mismo el espacio de trabajo
+using namespace std; // lo mismo el espacio de trabajo
 
-class usuario//clase usuario
+class usuario // clase usuario
 {
 
-private://atributos de la clase
+private: // atributos de la clase
     string nombre_usuario;
     string apellido_usuario;
     string correo_usuario;
@@ -17,7 +17,7 @@ private://atributos de la clase
     int contrasena;
 
 public:
-    usuario(string nombre_usuario,//constructor no vacio de la clase
+    usuario(string nombre_usuario, // constructor no vacio de la clase
             string apellido_usuario,
             string correo_usuario,
             int tipo_documento,
@@ -35,6 +35,7 @@ public:
         this->contrasena = contrasena;
     }
 
+    usuario() {}//constructor vacio
     // --------------------------------------- setters--------------------------------------------------------------------
     void setNombreUsuario(const string &nombre)
     {
