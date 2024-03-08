@@ -107,48 +107,47 @@ void recargar()
 
 void enviar_plata()
 {
-    do
+
+    int eleccion;
+    cout << "seleccione la opcion para enviar dinero: " << endl;
+    cout << "1- A otro nequi" << endl;
+    cout << "2- Codigo de regalo" << endl;
+    cin >> eleccion;
+
+    switch (eleccion)
     {
-        int eleccion;
-        cout << "seleccione la opcion para enviar dinero: " << endl;
-        cout << "1- A otro nequi" << endl;
-        cout << "2- Codigo de regalo" << endl;
-        cin >> eleccion;
-
-        switch (eleccion)
+    case 1:
+        break;
+    case 2:
+        static int aux22 = 0;
+        float auxiliar_saldo;
+        cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
+        cin >> auxiliar_saldo;
+        for (usuario p : lista_usuario) // recorre la lista
         {
-        case 1:
-            break;
-        case 2:
-            int aux22 = generar_codigos();
-            float auxiliar_saldo;
-            cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
-            cin >> auxiliar_saldo;
-            for (usuario p : lista_usuario) // recorre la lista
-            {
 
-                if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+            {
+                if (p.getSaldo() < auxiliar_saldo)
                 {
-                    if (p.getSaldo() < auxiliar_saldo)
-                    {
-                        cout << "El saldo no es suficiente para generar el codigo" << endl;
-                    }
-                    else
-                    {
-                        float aux = p.getSaldo();
-                        aux -= auxiliar_saldo;
-                        p.setSaldo(aux);
-                    }
-                    regalo aux(usuario_logeado, aux22, auxiliar_saldo);
-                    lista_regalos.push_back(aux);
+                    cout << "El saldo no es suficiente para generar el codigo" << endl;
+                }
+                else
+                {
+                    float aux = p.getSaldo();
+                    aux -= auxiliar_saldo;
+                    p.setSaldo(aux);
+                    aux22 = generar_codigos();
                     cout << "codigo generado correctamente:" << aux22 << endl;
                 }
+                regalo aux(usuario_logeado, aux22, auxiliar_saldo);
+                lista_regalos.push_back(aux);
             }
-            break;
-        default:
-            break;
         }
-    } while (true);
+        break;
+    default:
+        break;
+    }
 }
 
 //______________________________________________________________________________________________________
