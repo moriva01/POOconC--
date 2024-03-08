@@ -144,9 +144,7 @@ void enviar_plata()
                     cout << "codigo generado correctamente:" << aux22 << endl;
                 }
             }
-
             break;
-
         default:
             break;
         }
