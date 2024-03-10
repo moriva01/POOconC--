@@ -303,6 +303,77 @@ void bolsillo(usuario &p)
         break;
     }
 }
+
+void meta(usuario &p)
+{
+
+    cout << "--------------- meta actual: " << p.getMeta(0) << endl;
+    cout << "-------- ahorro actual: " << p.getMeta(1) << endl;
+    int eleccion;
+    cout << "que deseas hacer? " << endl;
+    cout << "1- cambiar meta" << endl
+         << "2- agregar dinero a la meta" << endl
+         << "3- retirar dinero de la meta" << endl
+         << "4- salir" << endl;
+    cin >> eleccion;
+
+    switch (eleccion)
+    {
+    case 1:
+        float aux1;
+        cout << "Digite la nueva meta de ahorro: " << endl;
+        cin >> aux1;
+
+        if (p.getMeta(0) > aux1)
+        {
+
+            cout << "la nueva meta no puede ser menor a la meta antigua" << endl;
+            return;
+        }
+
+        p.setMeta(aux1, p.getMeta(1));
+        cout << "meta actualizada correctamente" << endl;
+        break;
+    case 2:
+
+        float aux2;
+        cout << "Digite cuanto dinero vas a pasar: " << endl;
+        cin >> aux2;
+
+        if (p.getSaldo() < aux2)
+        {
+
+            cout << "El saldo no es suficiente para pasar a la meta" << endl;
+            return;
+        }
+
+        p.setSaldo(p.getSaldo() - aux2);
+        p.setMeta(p.getMeta(0), (p.getMeta(1) + aux2));
+
+        cout << "se paso la plata al la meta" << endl;
+
+        break;
+
+    case 3:
+
+        if (p.getMeta(0) != p.getMeta(1))
+        {
+            cout << "error, aun no se ha cumplido la meta " << endl;
+        }
+
+        p.setSaldo(p.getSaldo() + p.getMeta(1));
+        p.setMeta(0, 0);
+        cout << "la plata ya fue devuelta al saldo de tu cuenta " << endl;
+
+        break;
+    case 4:
+        return;
+        break;
+
+    default:
+        break;
+    }
+}
 //______________________________________________________________________________________________________
 
 void menu_app(int long long usuario_logeado)
@@ -335,6 +406,7 @@ void menu_app(int long long usuario_logeado)
                 case 1:
                     break;
                 case 2:
+                    meta(p);
                     break;
                 case 3:
                     bolsillo(p);
