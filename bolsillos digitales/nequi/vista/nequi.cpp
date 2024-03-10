@@ -1,6 +1,6 @@
 //                          Ivan David Moreno Vargas
 
-#include "../controlador/registros.h"//importa el controlador (clase registros)
+#include "../controlador/registros.h" //importa el controlador (clase registros)
 
 int main()
 {
@@ -8,27 +8,32 @@ int main()
 
     int eleccion;
 
-    while (true)//menu inicial nequi
+    while (true) // menu inicial nequi
     {
 
         cout << "-------------------Nequi-------------------------------------" << endl;
         cout << "--- 1- Crea tu Nequi                                      ---" << endl;
         cout << "--- 2- Entra                                              ---" << endl;
+        cout << "--- 3- Salir                                              ---" << endl;
         cout << "-------------------------------------------------------------" << endl;
         cin >> eleccion;
 
         switch (eleccion)
         {
         case 1:
-            registrar_usuario();//registrar usuarios
+            registrar_usuario(); // registrar usuarios
             break;
 
         case 2:
-            acceder_app();//ingresar al nequi
+            acceder_app(); // ingresar al nequi
+            break;
+
+        case 3:
+            return;
             break;
 
         default:
-            cout << "Opcion no valida" << endl;//sale del sistema
+            cout << "Opcion no valida" << endl; // sale del sistema
             return 0;
             break;
         }

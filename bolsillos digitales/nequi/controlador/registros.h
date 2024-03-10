@@ -79,30 +79,98 @@ int generar_codigos()
 void recargar()
 {
 
-    do
+    int eleccion;
+    cout << "seleccione la opcion con la que va a recargar su cuenta: " << endl;
+    cout << "1- Efectivo" << endl;
+    cout << "2- Transferencia bancaria" << endl; // tratar de conectar esto con daviplata
+    cout << "3- codigo regalo" << endl;          // programar algo que genere codigos regalo
+    cout << "4- salir" << endl;
+
+    cin >> eleccion;
+
+    switch (eleccion)
     {
-        int eleccion;
-        cout << "seleccione la opcion con la que va a recargar su cuenta: " << endl;
-        cout << "1- Efectivo" << endl;
-        cout << "2- Transferencia bancaria" << endl; // tratar de conectar esto con daviplata
-        cout << "3- codigo regalo" << endl;          // programar algo que genere codigos regalo
-
-        cin >> eleccion;
-
-        switch (eleccion)
+    case 1:
+        float aux_r;
+        cout << "por favor dirijase a un punto nequi para hacer su recarga en efectivo" << endl;
+        cout << "-----------Punto de recarga nequi ----------------------" << endl;
+        cout << "Digite la cantidad de dinero a  recargar: " << endl;
+        cin >> aux_r;
+        for (usuario p : lista_usuario) // recorre la lista
         {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
 
-            break;
+            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+            {
+                float aux22 = p.getSaldo();
+                aux22 += aux_r;
+                p.setSaldo(aux22);
 
-        default:
-            break;
+                cout << "regarga exitosa" << endl;
+            }
         }
-    } while (true);
+
+        break;
+    case 2:
+        int eleccion;
+        cout << "Por favor seleccione su banco: " << endl;
+        cout << "1- Banco de bogota" << endl;
+        cout << "2- Davivienda" << endl;
+        cout << "3- Bancolombia" << endl;
+        cout << "4- Banco caja social" << endl;
+        cout << "5- Banco AV Villas" << endl;
+        cin >> eleccion;
+        float aux_r;
+        cout << "Digite la cantidad de dinero a  recargar: " << endl;
+        cin >> aux_r;
+        for (usuario p : lista_usuario) // recorre la lista
+        {
+
+            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+            {
+                float aux22 = p.getSaldo();
+                aux22 += aux_r;
+                p.setSaldo(aux22);
+
+                cout << "regarga exitosa" << endl;
+            }
+        }
+        break;
+    case 3:
+        int codigo_regalo;
+        float saldo_aux = 0;
+        cout << "digite su codigo de regalo: " << endl;
+        cin >> codigo_regalo;
+        for (regalo p : lista_regalos) // recorre la lista
+        {
+
+            if (codigo_regalo == p.getCodigo()) // mira si el numero celular ya esta registrado
+            {
+                saldo_aux = p.getCantidad();
+                cout << "recarga exitosa" << endl;
+            }
+        }
+
+        for (usuario p : lista_usuario) // recorre la lista
+        {
+
+            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+            {
+
+                float aux = p.getSaldo();
+                aux += saldo_aux;
+                p.setSaldo(aux);
+            }
+        }
+
+        break;
+
+    case 4:
+        return;
+        break;
+
+    default:
+        break;
+    }
 }
 
 void enviar_plata()
@@ -112,11 +180,53 @@ void enviar_plata()
     cout << "seleccione la opcion para enviar dinero: " << endl;
     cout << "1- A otro nequi" << endl;
     cout << "2- Codigo de regalo" << endl;
+    cout << "3- Salir" << endl;
     cin >> eleccion;
 
     switch (eleccion)
     {
     case 1:
+        float auxiliar_saldo;
+        int long long auxiliar_numero;
+        cout << "digite la cantidad de dinero a enviar: " << endl;
+        cin >> auxiliar_saldo;
+        for (usuario p : lista_usuario) // recorre la lista
+        {
+
+            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+            {
+                if (p.getSaldo() > auxiliar_saldo)
+                {
+
+                    float aux = p.getSaldo();
+                    aux -= auxiliar_saldo;
+                    p.setSaldo(aux);
+                }
+                else
+                {
+                    cout << "El saldo no es suficiente para generar el codigo" << endl;
+                }
+            }
+        }
+
+        cout << "digite el numero a enviar plata: " << endl;
+        cin >> auxiliar_numero;
+
+        for (usuario p : lista_usuario) // recorre la lista
+        {
+
+            if (auxiliar_numero == p.getNumeroCelular()) // mira si el numero celular ya esta registrado
+            {
+                float aux = p.getSaldo();
+                aux += auxiliar_saldo;
+                p.setSaldo(aux);
+            }
+            else
+            {
+                cout << "El usuario no se encuentra registrado" << endl;
+            }
+        }
+
         break;
     case 2:
         static int aux22 = 0;
@@ -144,6 +254,10 @@ void enviar_plata()
                 lista_regalos.push_back(aux);
             }
         }
+        break;
+
+    case 3:
+        return;
         break;
     default:
         break;
@@ -199,6 +313,7 @@ void acceder_app() // entrar a la aplicacion
                 case 3:
                     break;
                 case 4:
+                    recargar();
                     break;
                 case 5:
                     break;
