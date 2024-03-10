@@ -5,7 +5,6 @@
 vector<usuario> lista_usuario;
 vector<regalo> lista_regalos;                                                                           // lista de tipo objeto para los usuarios
 usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995, 0, 0, 0, 0); // usuario que ya esta registrado
-int long long usuario_logeado;
 
 void registrar_usuario() // metodo registrar suario
 {
@@ -76,7 +75,7 @@ int generar_codigos()
 }
 //______________________________________________________________________________________________________
 
-void recargar()
+void recargar(usuario &p)
 {
 
     int eleccion;
@@ -96,18 +95,7 @@ void recargar()
         cout << "-----------Punto de recarga nequi ----------------------" << endl;
         cout << "Digite la cantidad de dinero a  recargar: " << endl;
         cin >> aux_r;
-        for (usuario p : lista_usuario) // recorre la lista
-        {
-
-            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
-            {
-                float aux22 = p.getSaldo();
-                aux22 += aux_r;
-                p.setSaldo(aux22);
-
-                cout << "regarga exitosa" << endl;
-            }
-        }
+        p.setSaldo(p.getSaldo() + aux_r);
 
         break;
     case 2:
@@ -119,48 +107,26 @@ void recargar()
         cout << "4- Banco caja social" << endl;
         cout << "5- Banco AV Villas" << endl;
         cin >> eleccion;
-        float aux_r;
+        float aux_rr;
         cout << "Digite la cantidad de dinero a  recargar: " << endl;
-        cin >> aux_r;
-        for (usuario p : lista_usuario) // recorre la lista
-        {
-
-            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
-            {
-                float aux22 = p.getSaldo();
-                aux22 += aux_r;
-                p.setSaldo(aux22);
-
-                cout << "regarga exitosa" << endl;
-            }
-        }
+        cin >> aux_rr;
+        p.setSaldo(p.getSaldo() + aux_rr);
         break;
     case 3:
         int codigo_regalo;
-        float saldo_aux = 0;
+        static float saldo_aux3 = 0;
         cout << "digite su codigo de regalo: " << endl;
         cin >> codigo_regalo;
-        for (regalo p : lista_regalos) // recorre la lista
+        for (regalo q : lista_regalos) // recorre la lista
         {
 
-            if (codigo_regalo == p.getCodigo()) // mira si el numero celular ya esta registrado
+            if (q.getCodigo() == codigo_regalo) // mira si el numero celular ya esta registrado
             {
-                saldo_aux = p.getCantidad();
+                saldo_aux3 = q.getCantidad();
                 cout << "recarga exitosa" << endl;
             }
         }
-
-        for (usuario p : lista_usuario) // recorre la lista
-        {
-
-            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
-            {
-
-                float aux = p.getSaldo();
-                aux += saldo_aux;
-                p.setSaldo(aux);
-            }
-        }
+        p.setSaldo(p.getSaldo() + saldo_aux3);
 
         break;
 
@@ -173,7 +139,7 @@ void recargar()
     }
 }
 
-void enviar_plata()
+void enviar_plata(usuario &p, usuario &r, float monto)
 {
 
     int eleccion;
@@ -186,75 +152,43 @@ void enviar_plata()
     switch (eleccion)
     {
     case 1:
-        float auxiliar_saldo;
-        int long long auxiliar_numero;
-        cout << "digite la cantidad de dinero a enviar: " << endl;
-        cin >> auxiliar_saldo;
-        for (usuario p : lista_usuario) // recorre la lista
+        if (p.getSaldo() < monto)
         {
-
-            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
-            {
-                if (p.getSaldo() > auxiliar_saldo)
-                {
-
-                    float aux = p.getSaldo();
-                    aux -= auxiliar_saldo;
-                    p.setSaldo(aux);
-                }
-                else
-                {
-                    cout << "El saldo no es suficiente para generar el codigo" << endl;
-                }
-            }
+            cout << "El saldo no es suficiente para enviar dinero" << endl;
+            return;
         }
 
-        cout << "digite el numero a enviar plata: " << endl;
-        cin >> auxiliar_numero;
-
-        for (usuario p : lista_usuario) // recorre la lista
-        {
-
-            if (auxiliar_numero == p.getNumeroCelular()) // mira si el numero celular ya esta registrado
-            {
-                float aux = p.getSaldo();
-                aux += auxiliar_saldo;
-                p.setSaldo(aux);
-            }
-            else
-            {
-                cout << "El usuario no se encuentra registrado" << endl;
-            }
-        }
+        p.setSaldo(p.getSaldo() - monto);
+        r.setSaldo(r.getSaldo() + monto);
 
         break;
-    case 2:
-        static int aux22 = 0;
-        float auxiliar_saldo;
-        cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
-        cin >> auxiliar_saldo;
-        for (usuario p : lista_usuario) // recorre la lista
-        {
-
-            if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
+        /*case 2:
+            static int aux22 = 0;
+            float auxiliar_saldo2;
+            cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
+            cin >> auxiliar_saldo2;
+            for (usuario p : lista_usuario) // recorre la lista
             {
-                if (p.getSaldo() < auxiliar_saldo)
+
+                if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
                 {
-                    cout << "El saldo no es suficiente para generar el codigo" << endl;
+                    if (p.getSaldo() < auxiliar_saldo2)
+                    {
+                        cout << "El saldo no es suficiente para generar el codigo" << endl;
+                    }
+                    else
+                    {
+                        float aux = p.getSaldo();
+                        aux -= auxiliar_saldo2;
+                        p.setSaldo(aux);
+                        aux22 = generar_codigos();
+                        cout << "codigo generado correctamente:" << aux22 << endl;
+                    }
+                    regalo aux(usuario_logeado, aux22, auxiliar_saldo);
+                    lista_regalos.push_back(aux);
                 }
-                else
-                {
-                    float aux = p.getSaldo();
-                    aux -= auxiliar_saldo;
-                    p.setSaldo(aux);
-                    aux22 = generar_codigos();
-                    cout << "codigo generado correctamente:" << aux22 << endl;
-                }
-                regalo aux(usuario_logeado, aux22, auxiliar_saldo);
-                lista_regalos.push_back(aux);
             }
-        }
-        break;
+            break;*/
 
     case 3:
         return;
@@ -266,31 +200,18 @@ void enviar_plata()
 
 //______________________________________________________________________________________________________
 
-void acceder_app() // entrar a la aplicacion
+void menu_app(int long long usuario_logeado)
 {
 
-    int long long numero, codigo = 0; // pide numero y contraseña
-    int contra;
-    bool bandera = false; // por si el user no esta registrado
-
-    cout << "digite su numero de celular: " << endl;
-    cin >> numero;
-
-    cout << "digite su contraseña: " << endl;
-    cin >> contra;
-
-    for (usuario p : lista_usuario) // recorre la lista
+    for (usuario &p : lista_usuario) // recorre la lista
     {
 
-        if (numero == p.getNumeroCelular() && contra == p.getContrasena()) // revisa si el correo y la contraseña estan registrados
-        {
-            bandera = true;
-            usuario_logeado = p.getNumeroDocumento();
-            int eleccion;
+        if (p.getNumeroDocumento() == usuario_logeado)
 
+        {
             while (true) // si esta registrado muestra el menu del usuario
             {
-
+                int eleccion;
                 cout << "----------- Hola," << p.getNombreUsuario() << " " << p.getApellidoUsuario() << endl;
                 cout << "-- Saldo disponible: " << p.getSaldo() << endl;
                 cout << "-------------------------------------------------------------" << endl;
@@ -313,12 +234,34 @@ void acceder_app() // entrar a la aplicacion
                 case 3:
                     break;
                 case 4:
-                    recargar();
+                    recargar(p);
                     break;
                 case 5:
                     break;
                 case 6:
-                    enviar_plata();
+                    int long long auxiliar_numero;
+                    cout << "digite el numero a enviar plata: " << endl;
+                    cin >> auxiliar_numero;
+                    static usuario *enviar = nullptr;
+                    for (usuario &q : lista_usuario) // encuentra el numero celular
+                    {
+                        if (auxiliar_numero == q.getNumeroCelular())
+                        {
+                            enviar = &q;
+                            break;
+                        }
+                    }
+
+                    if (enviar == nullptr)
+                    {
+                        cout << "El usuario no se encuentra registrado" << endl;
+                        return;
+                    }
+
+                    float auxiliar_saldo;
+                    cout << "digite la cantidad de dinero a enviar: " << endl;
+                    cin >> auxiliar_saldo;
+                    enviar_plata(p, *enviar, auxiliar_saldo);
                     break;
 
                 case 7:
@@ -335,10 +278,34 @@ void acceder_app() // entrar a la aplicacion
             }
         }
     }
+}
 
-    if (bandera = false) // si el usuario no esta registrado
+int long long acceder_app() // entrar a la aplicacion
+{
+
+    int long long numero, usuario_logeado = 0; // pide numero y contraseña
+    int contra;
+    bool bandera = false;
+
+    cout << "digite su numero de celular: " << endl;
+    cin >> numero;
+
+    cout << "digite su contraseña: " << endl;
+    cin >> contra;
+
+    for (usuario p : lista_usuario) // recorre la lista
     {
 
-        cout << "el usuario no existe, debe registarse!" << endl;
+        if (numero == p.getNumeroCelular() && contra == p.getContrasena()) // revisa si el correo y la contraseña estan registrados
+        {
+            usuario_logeado = p.getNumeroDocumento();
+            bandera = true;
+        }
     }
+    if (bandera == false)
+    {
+        cout << "usuario no registrado" << endl;
+    }
+
+    return usuario_logeado;
 }

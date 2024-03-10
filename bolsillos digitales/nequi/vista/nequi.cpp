@@ -5,7 +5,7 @@
 int main()
 {
     lista_usuario.push_back(usuario1); // mete el usuario principal que damos por hecho que ya existe
-
+    int long long log = 0;
     int eleccion;
 
     while (true) // menu inicial nequi
@@ -25,11 +25,12 @@ int main()
             break;
 
         case 2:
-            acceder_app(); // ingresar al nequi
+            log = acceder_app(); // ingresar al nequi
+            menu_app(log);
             break;
 
         case 3:
-            return;
+            return 0;
             break;
 
         default:

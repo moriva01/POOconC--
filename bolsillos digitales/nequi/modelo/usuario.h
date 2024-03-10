@@ -151,7 +151,7 @@ public:
     {
         return bolsillo;
     }
-    float getSaldo() const
+    float getSaldo()
     {
         return saldo;
     }
