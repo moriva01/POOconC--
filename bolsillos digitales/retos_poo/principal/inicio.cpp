@@ -1,6 +1,6 @@
 //                                                           ivan david moreno vargas
 
-#include "../salud/persona.h"  //agregar la clase persona con todos sus metodos y atributos
+//#include "../salud/persona.h"  //agregar la clase persona con todos sus metodos y atributos
 #include "../salud/empleado.h" //agregar la clase empleado con todos sus metodos y atributos
 
 int main() // creamso el main aqui
