@@ -1,4 +1,4 @@
-#include "persona.h"
+#include "persona.h" //imprtar persona.h para heredar sus metodos y atributos
 
 class usuario : public persona // clase usuario
 {
@@ -12,24 +12,6 @@ private: // atributos de la clase
     float saldo;
 
 public:
-    /*usuario(
-
-        int long long numero_celular, // constructor con parametros de la clase
-        int contrasena,
-        float colchon,
-        float meta,
-        float bolsillo,
-        float saldo)
-    {
-
-        this->numero_celular = numero_celular;
-        this->contrasena = contrasena;
-        this->colchon = colchon;
-        this->meta = meta;
-        this->bolsillo = bolsillo;
-        this->saldo = saldo;
-    }*/
-
     usuario() {} // constructor vacio
     // --------------------------------------- setters--------------------------------------------------------------------
 
@@ -84,7 +66,6 @@ public:
     float getMeta(int i) const
     {
         return meta[i];
-        
     }
     float getBolsillo(int i)
     {

@@ -1,13 +1,13 @@
 class regalo
 {
 
-private:
+private: // atributos regalo
     int long long id_comprador;
     int codigo;
     float cantidad;
 
 public:
-    regalo(int long long id_comprador,
+    regalo(int long long id_comprador, // constructor con parametros
            int codigo, float cantidad)
     {
 
@@ -16,7 +16,9 @@ public:
         this->cantidad = cantidad;
     }
 
-    regalo() {}
+    regalo() {} // constructor vacio
+
+    // -------------------------------- setters
 
     void setId_comprador(const long long comprador)
     {
@@ -32,6 +34,8 @@ public:
     {
         codigo = code;
     }
+
+    // ------------------------------------- getters
 
     long long getId_comprador() const
     {

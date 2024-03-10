@@ -1,10 +1,10 @@
 #include "../modelo/usuario.h" // importa modelo (clase usuario)
 #include "../modelo/regalo.h"  // importa modelo (clase regalo)
 #include <vector>              //clase vector para poder usar listas dinamicas
-#include <algorithm>
+#include <algorithm>           // clase algotirmo para poder obtener id de una lista y luego borrarlo
 
-vector<usuario> lista_usuario;
-vector<regalo> lista_regalos; // lista de tipo objeto para los usuarios
+vector<usuario> lista_usuario; // lista de tipo objeto de los usuarios
+vector<regalo> lista_regalos; // lista de tipo objeto para los regalos
 
 void registrar_usuario() // metodo registrar suario
 {
@@ -76,7 +76,7 @@ void registrar_usuario() // metodo registrar suario
     lista_usuario.push_back(aux1); // lo pasa a la lista
 }
 
-int generar_codigos()
+int generar_codigos()//metodo que genera codigos aleatorios de 6 digitos
 {
 
     srand(time(0));
@@ -86,63 +86,63 @@ int generar_codigos()
 }
 //______________________________________________________________________________________________________
 
-void recargar(usuario &p)
+void recargar(usuario &p)//metodo para recargar la cuenta del usuario
 {
 
     int eleccion;
     cout << "seleccione la opcion con la que va a recargar su cuenta: " << endl;
     cout << "1- Efectivo" << endl;
-    cout << "2- Transferencia bancaria" << endl; // tratar de conectar esto con daviplata
-    cout << "3- codigo regalo" << endl;          // programar algo que genere codigos regalo
+    cout << "2- Transferencia bancaria" << endl; // tratar de conectar esto con daviplata (eso para el proximo sprint jajaaj)
+    cout << "3- codigo regalo" << endl;          
     cout << "4- salir" << endl;
 
     cin >> eleccion;
 
     switch (eleccion)
     {
-    case 1:
+    case 1:// recargar en efectivo
         float aux_r;
         cout << "por favor dirijase a un punto nequi para hacer su recarga en efectivo" << endl;
         cout << "-----------Punto de recarga nequi ----------------------" << endl;
         cout << "Digite la cantidad de dinero a  recargar: " << endl;
-        cin >> aux_r;
-        p.setSaldo(p.getSaldo() + aux_r);
+        cin >> aux_r;//pide el dinero para hacer la recarga
+        p.setSaldo(p.getSaldo() + aux_r);//lo actualiza en el saldo
 
         break;
-    case 2:
+    case 2://trasferencia bancaria
         int eleccion;
         cout << "Por favor seleccione su banco: " << endl;
         cout << "1- Banco de bogota" << endl;
         cout << "2- Davivienda" << endl;
         cout << "3- Bancolombia" << endl;
         cout << "4- Banco caja social" << endl;
-        cout << "5- Banco AV Villas" << endl;
+        cout << "5- Banco AV Villas" << endl;//escojer un banco para hacer la recarga
         cin >> eleccion;
         float aux_rr;
         cout << "Digite la cantidad de dinero a  recargar: " << endl;
-        cin >> aux_rr;
-        p.setSaldo(p.getSaldo() + aux_rr);
+        cin >> aux_rr;//pide la cantidad para recargar
+        p.setSaldo(p.getSaldo() + aux_rr);//actualiza el saldo
         break;
-    case 3:
+    case 3://codigo regalo
         int codigo_regalo;
         static float saldo_aux3 = 0;
         cout << "digite su codigo de regalo: " << endl;
-        cin >> codigo_regalo;
+        cin >> codigo_regalo;//pide el codigo de regalo
 
-        static auto it = find_if(lista_regalos.begin(), lista_regalos.end(),
+        static auto it = find_if(lista_regalos.begin(), lista_regalos.end(),//obtiene la poscision del codigo dentro de la lista
                                  [codigo_regalo](const regalo &q)
-                                 { return q.getCodigo() == codigo_regalo; });
+                                 { return q.getCodigo() == codigo_regalo; });//revisa que el codigo exista en la lista de codigos para ser valido
 
         if (it != lista_regalos.end())
         {
             saldo_aux3 = it->getCantidad();
-            p.setSaldo(p.getSaldo() + saldo_aux3);
+            p.setSaldo(p.getSaldo() + saldo_aux3);//hace la recarga y actualiza el saldo
             cout << "recarga exitosa" << endl;
-            lista_regalos.erase(it);
+            lista_regalos.erase(it);//borra el codigo de la lista asi no se puede volver a usar
         }
         else
         {
-            cout << "El codigo de regalo no es valido o ya ha sido utilizado." << endl;
+            cout << "El codigo de regalo no es valido o ya ha sido utilizado." << endl;//dice si el codigo es invalido o ya se uso
         }
         break;
 
@@ -155,34 +155,34 @@ void recargar(usuario &p)
     }
 }
 
-void enviar_plata(usuario &p, usuario &r, float monto, int eleccion)
+void enviar_plata(usuario &p, usuario &r, float monto, int eleccion)//metodo enviar plata a otros nequi
 {
     switch (eleccion)
     {
-    case 1:
+    case 1://envia a otro nequi
         if (p.getSaldo() < monto)
         {
-            cout << "El saldo no es suficiente para enviar dinero" << endl;
+            cout << "El saldo no es suficiente para enviar dinero" << endl;//revisa si el monto es valido para poderlo pasar
             return;
         }
 
-        p.setSaldo(p.getSaldo() - monto);
-        r.setSaldo(r.getSaldo() + monto);
+        p.setSaldo(p.getSaldo() - monto);//lo saca de la cuneta saliente
+        r.setSaldo(r.getSaldo() + monto);// lo pasa a la cuenta entrante
 
         break;
-    case 2:
-        static int aux22 = 0;
+    case 2://genera los codigos para recargar
+        static int aux22 = 0;//guarda el codigo
 
-        if (p.getSaldo() < monto)
+        if (p.getSaldo() < monto)//revisa si el monto es valido
         {
             cout << "El saldo no es suficiente para crear codigo" << endl;
             return;
         }
-        p.setSaldo(p.getSaldo() - monto);
-        aux22 = generar_codigos();
+        p.setSaldo(p.getSaldo() - monto);//saca el monto del saldo
+        aux22 = generar_codigos();//genera el codigo aleatorio y lo guarda en la variable
         cout << "codigo generado correctamente ------------------------------------------------------------ " << aux22 << endl;
-        static regalo aux(p.getNumeroDocumento(), aux22, monto);
-        lista_regalos.push_back(aux);
+        static regalo aux(p.getNumeroDocumento(), aux22, monto);//crea el objeto regalo
+        lista_regalos.push_back(aux);//lo pasa a la lista
         break;
 
     case 3:
@@ -193,32 +193,32 @@ void enviar_plata(usuario &p, usuario &r, float monto, int eleccion)
     }
 }
 
-void sacar_plata(usuario &p)
+void sacar_plata(usuario &p)//metodo sacar plata
 {
 
     static int aux23 = 0;
     float aux;
     cout << "Digite la cantidad de dinero a retirar: " << endl;
-    cin >> aux;
+    cin >> aux;//pide el dinero para retirar
 
-    if (p.getSaldo() < aux)
+    if (p.getSaldo() < aux)//valida si el monto es viable para sacar
     {
         cout << "El saldo no es suficiente para crear codigo" << endl;
         return;
     }
-    aux23 = generar_codigos();
+    aux23 = generar_codigos();//genera un codigo para retirar
     cout << "use este codigo para retirar -------------------------------------------------- " << aux23 << endl;
-    p.setSaldo(p.getSaldo() - aux);
+    p.setSaldo(p.getSaldo() - aux);//actualiza el saldo
 }
 
-void bolsillo(usuario &p)
+void bolsillo(usuario &p)//metodo bolsillo
 {
 
     cout << "-------------- saldo en bolsillos: " << endl;
 
     for (int i = 0; i < 3; i++)
     {
-        cout << "bolsillo[" << i + 1 << "]: " << p.getBolsillo(i) << endl;
+        cout << "bolsillo[" << i + 1 << "]: " << p.getBolsillo(i) << endl;//muesta lo que hay en los 3 bolsillos
     }
     int eleccion;
     cout << "que desea hacer?: " << endl;
@@ -229,69 +229,69 @@ void bolsillo(usuario &p)
 
     switch (eleccion)
     {
-    case 1:
+    case 1://agregar dinero a los bolsiloos
         float bolsillo_dinero;
         cout << "Digite el valor de dinero que desea pasar al bolsillo: " << endl;
-        cin >> bolsillo_dinero;
+        cin >> bolsillo_dinero;//saca el dinero del saldo
 
         if (p.getSaldo() < bolsillo_dinero)
-        {
+        {//valida que el monto sea valido
             cout << "El saldo no es suficiente para pasar dienro al bolsillo" << endl;
             return;
         }
-        p.setSaldo(p.getSaldo() - bolsillo_dinero);
+        p.setSaldo(p.getSaldo() - bolsillo_dinero);//actualiza el saldo
 
         int eleccion_2;
         cout << "seleccione el bolsillo al que quiere pasar la plata: " << endl;
         cout << "1- bolsillo 1" << endl
              << "2- bolsillo 2" << endl
              << "3- bolsillo 3" << endl;
-        cin >> eleccion_2;
+        cin >> eleccion_2;//selecciona alguno de los 3 bolsillos
         switch (eleccion_2)
         {
         case 1:
-            p.setBolsillo(bolsillo_dinero, p.getBolsillo(1), p.getBolsillo(2));
+            p.setBolsillo(bolsillo_dinero, p.getBolsillo(1), p.getBolsillo(2));//hace recarga bolsillo 1
             break;
 
         case 2:
-            p.setBolsillo(p.getBolsillo(0), bolsillo_dinero, p.getBolsillo(2));
+            p.setBolsillo(p.getBolsillo(0), bolsillo_dinero, p.getBolsillo(2));//hace recarga bolsillo 2
             break;
 
         case 3:
-            p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), bolsillo_dinero);
+            p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), bolsillo_dinero);//hace recarga bolsillo 3
             break;
 
         default:
             break;
         }
         break;
-    case 2:
+    case 2://retira la plata - la pasa al saldo
 
         int eleccion_3;
         cout << "seleccione el bolsillo del que quiere sacar la plata: " << endl;
         cout << "1- bolsillo 1" << endl
              << "2- bolsillo 2" << endl
              << "3- bolsillo 3" << endl;
-        cin >> eleccion_3;
+        cin >> eleccion_3;//selecciona el bolsillo del que quiere sacar la plata
 
         switch (eleccion_3)
         {
 
         case 1:
-            p.setSaldo(p.getSaldo() + p.getBolsillo(0));
-            p.setBolsillo(0, p.getBolsillo(1), p.getBolsillo(2));
+            p.setSaldo(p.getSaldo() + p.getBolsillo(0));//actualiza el saldo
+            p.setBolsillo(0, p.getBolsillo(1), p.getBolsillo(2));//saca la plata bolsillo 1
             cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
             break;
 
         case 2:
-            p.setSaldo(p.getSaldo() + p.getBolsillo(1));
-            p.setBolsillo(p.getBolsillo(0), 0, p.getBolsillo(2));
+            p.setSaldo(p.getSaldo() + p.getBolsillo(1));//actualiza el saldo
+            p.setBolsillo(p.getBolsillo(0), 0, p.getBolsillo(2));//saca la plata bolsillo 2
             cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
             break;
 
         case 3:
-            p.setSaldo(p.getSaldo() + p.getBolsillo(2));
-            p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), 0);
+            p.setSaldo(p.getSaldo() + p.getBolsillo(2));//actualiza el saldo
+            p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), 0);//saca la plata bolsillo 3
             cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
             break;
 
@@ -304,11 +304,11 @@ void bolsillo(usuario &p)
     }
 }
 
-void meta(usuario &p)
+void meta(usuario &p)//metodo meta de ahorro
 {
 
-    cout << "--------------- meta actual: " << p.getMeta(0) << endl;
-    cout << "-------- ahorro actual: " << p.getMeta(1) << endl;
+    cout << "--------------- meta actual: " << p.getMeta(0) << endl;//ver la meta
+    cout << "-------- ahorro actual: " << p.getMeta(1) << endl;// ver ahorro en la meta
     int eleccion;
     cout << "que deseas hacer? " << endl;
     cout << "1- cambiar meta" << endl
@@ -319,50 +319,50 @@ void meta(usuario &p)
 
     switch (eleccion)
     {
-    case 1:
+    case 1://actualioza la meta de ahorro
         float aux1;
         cout << "Digite la nueva meta de ahorro: " << endl;
         cin >> aux1;
 
-        if (p.getMeta(0) > aux1)
+        if (p.getMeta(0) > aux1)//nueva meta no puede ser menor a anterior meta
         {
 
             cout << "la nueva meta no puede ser menor a la meta antigua" << endl;
             return;
         }
 
-        p.setMeta(aux1, p.getMeta(1));
+        p.setMeta(aux1, p.getMeta(1));//actualiza meta
         cout << "meta actualizada correctamente" << endl;
         break;
     case 2:
-
+//pasa dienro al ahorro de la meta
         float aux2;
         cout << "Digite cuanto dinero vas a pasar: " << endl;
         cin >> aux2;
 
-        if (p.getSaldo() < aux2)
+        if (p.getSaldo() < aux2)//valida el saldo si s epuede sacar el dinero
         {
 
             cout << "El saldo no es suficiente para pasar a la meta" << endl;
             return;
         }
 
-        p.setSaldo(p.getSaldo() - aux2);
-        p.setMeta(p.getMeta(0), (p.getMeta(1) + aux2));
+        p.setSaldo(p.getSaldo() - aux2);//actualiza saldo
+        p.setMeta(p.getMeta(0), (p.getMeta(1) + aux2));//actualiza ahorro en la meta
 
         cout << "se paso la plata al la meta" << endl;
 
         break;
 
-    case 3:
+    case 3://retirar de la meta
 
-        if (p.getMeta(0) != p.getMeta(1))
+        if (p.getMeta(0) != p.getMeta(1))//solo si la meta y el ahorro son iguales
         {
             cout << "error, aun no se ha cumplido la meta " << endl;
         }
 
-        p.setSaldo(p.getSaldo() + p.getMeta(1));
-        p.setMeta(0, 0);
+        p.setSaldo(p.getSaldo() + p.getMeta(1));//pasa el dienro al saldo
+        p.setMeta(0, 0);//pone la meta de nuevo en 0
         cout << "la plata ya fue devuelta al saldo de tu cuenta " << endl;
 
         break;
@@ -376,7 +376,7 @@ void meta(usuario &p)
 }
 //______________________________________________________________________________________________________
 
-void menu_app(int long long usuario_logeado)
+void menu_app(int long long usuario_logeado)//metodo del menu del aplicativo
 {
 
     for (usuario &p : lista_usuario) // recorre la lista
@@ -400,65 +400,65 @@ void menu_app(int long long usuario_logeado)
                 cout << "--- 7- ver movimientos                                    ---" << endl;
                 cout << "--- 8- Salir                                              ---" << endl;
                 cout << "-------------------------------------------------------------" << endl;
-                cin >> eleccion;
+                cin >> eleccion;//selecciona la opcion 
                 switch (eleccion)
                 {
                 case 1:
                     break;
                 case 2:
-                    meta(p);
+                    meta(p);//meta de ahorro
                     break;
                 case 3:
-                    bolsillo(p);
+                    bolsillo(p);//bolsillos de ahorro
                     break;
                 case 4:
-                    recargar(p);
+                    recargar(p);//recargar cuenta
                     break;
                 case 5:
-                    sacar_plata(p);
+                    sacar_plata(p);//sacar plata
                     break;
-                case 6:
+                case 6://pasar plata a otro nequi
                     static float auxiliar_saldo = 0;
-                    static usuario *enviar = nullptr;
+                    static usuario *enviar = nullptr;//objeto auxiliar otro nequi
                     int eleccion;
                     cout << "seleccione la opcion para enviar dinero: " << endl;
                     cout << "1- A otro nequi" << endl;
                     cout << "2- Codigo de regalo" << endl;
                     cout << "3- Salir" << endl;
-                    cin >> eleccion;
+                    cin >> eleccion;//selecciona la opcion del menu
 
                     if (eleccion == 1)
-                    {
+                    {//pasar a otro nequi
 
                         int long long auxiliar_numero;
                         cout << "digite el numero a enviar plata: " << endl;
-                        cin >> auxiliar_numero;
+                        cin >> auxiliar_numero;//pide el numero de celular
 
                         for (usuario &q : lista_usuario) // encuentra el numero celular
                         {
                             if (auxiliar_numero == q.getNumeroCelular())
                             {
-                                enviar = &q;
+                                enviar = &q;//devuelve la poscision en la lsita
                                 break;
                             }
                         }
 
                         if (enviar == nullptr)
-                        {
+                        {//si no existe usuario
                             cout << "El usuario no se encuentra registrado" << endl;
                             return;
                         }
 
                         cout << "digite la cantidad de dinero a enviar: " << endl;
-                        cin >> auxiliar_saldo;
+                        cin >> auxiliar_saldo;//pide el dinero a pasar
                     }
                     if (eleccion == 2)
-                    {
+                    {//generar codigo para regargar
                         cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
-                        cin >> auxiliar_saldo;
+                        cin >> auxiliar_saldo;//pide saldo
                     }
 
-                    enviar_plata(p, *enviar, auxiliar_saldo, eleccion);
+                    enviar_plata(p, *enviar, auxiliar_saldo, eleccion);//metodo para enviar plata
                     break;
 
                 case 7:
@@ -495,7 +495,7 @@ int long long acceder_app() // entrar a la aplicacion
 
         if (numero == p.getNumeroCelular() && contra == p.getContrasena()) // revisa si el correo y la contraseña estan registrados
         {
-            usuario_logeado = p.getNumeroDocumento();
+            usuario_logeado = p.getNumeroDocumento();//guarda nuemro de documeto usuario loggeado
             bandera = true;
         }
     }
@@ -504,5 +504,5 @@ int long long acceder_app() // entrar a la aplicacion
         cout << "usuario no registrado" << endl;
     }
 
-    return usuario_logeado;
+    return usuario_logeado;//retorna ese numero de documento
 }
