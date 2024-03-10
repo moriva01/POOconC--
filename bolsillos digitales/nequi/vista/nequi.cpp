@@ -4,6 +4,19 @@
 
 int main()
 {
+    usuario usuario1;   //("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995, 0, 0, 0, 0);
+    usuario1.setNombreUsuario("juan");
+    usuario1.setApellidoUsuario("perez");
+    usuario1.setCorreoUsuario("juan.perez@correo.com");
+    usuario1.setTipoDocumento(1);
+    usuario1.setNumeroDocumento(123456789);
+    usuario1.setNumeroCelular(3227027094);
+    usuario1.setContrasena(1995);
+    usuario1.setColchon(0);
+    usuario1.setMeta(0);
+    usuario1.setBolsillo(0);
+    usuario1.setSaldo(0);
+ 
     lista_usuario.push_back(usuario1); // mete el usuario principal que damos por hecho que ya existe
     int long long log = 0;
     int eleccion;

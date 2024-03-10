@@ -4,8 +4,7 @@
 #include <algorithm>
 
 vector<usuario> lista_usuario;
-vector<regalo> lista_regalos;                                                                           // lista de tipo objeto para los usuarios
-usuario usuario1("juan", "perez", "juan.perez@correo.com", 1, 123456789, 3227027094, 1995, 0, 0, 0, 0); // usuario que ya esta registrado
+vector<regalo> lista_regalos; // lista de tipo objeto para los usuarios
 
 void registrar_usuario() // metodo registrar suario
 {
@@ -61,7 +60,18 @@ void registrar_usuario() // metodo registrar suario
         cin >> contra;
     }
 
-    usuario aux1(nombre, apellido, correo, tipo, n_doc, n_cel, contra, 0, 0, 0, 0); // crea objeto auxiliar
+    usuario aux1; //(nombre, apellido, correo, tipo, n_doc, n_cel, contra, 0, 0, 0, 0); // crea objeto auxiliar
+    aux1.setNombreUsuario(nombre);
+    aux1.setApellidoUsuario(apellido);
+    aux1.setCorreoUsuario(correo);
+    aux1.setTipoDocumento(tipo);
+    aux1.setNumeroDocumento(n_doc);
+    aux1.setNumeroCelular(n_cel);
+    aux1.setContrasena(contra);
+    aux1.setColchon(0);
+    aux1.setMeta(0);
+    aux1.setBolsillo(0);
+    aux1.setSaldo(0);
 
     lista_usuario.push_back(aux1); // lo pasa a la lista
 }
