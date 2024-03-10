@@ -69,8 +69,8 @@ void registrar_usuario() // metodo registrar suario
     aux1.setNumeroCelular(n_cel);
     aux1.setContrasena(contra);
     aux1.setColchon(0);
-    aux1.setMeta(0);
-    aux1.setBolsillo(0);
+    aux1.setMeta(0, 0);
+    aux1.setBolsillo(0, 0, 0);
     aux1.setSaldo(0);
 
     lista_usuario.push_back(aux1); // lo pasa a la lista
@@ -211,6 +211,98 @@ void sacar_plata(usuario &p)
     p.setSaldo(p.getSaldo() - aux);
 }
 
+void bolsillo(usuario &p)
+{
+
+    cout << "-------------- saldo en bolsillos: " << endl;
+
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "bolsillo[" << i + 1 << "]: " << p.getBolsillo(i) << endl;
+    }
+    int eleccion;
+    cout << "que desea hacer?: " << endl;
+    cout << "1- agregar dinero a los bolsillos" << endl;
+    cout << "2- retirar dinero de los bolsillos" << endl;
+    cout << "3- salir" << endl;
+    cin >> eleccion;
+
+    switch (eleccion)
+    {
+    case 1:
+        float bolsillo_dinero;
+        cout << "Digite el valor de dinero que desea pasar al bolsillo: " << endl;
+        cin >> bolsillo_dinero;
+
+        if (p.getSaldo() < bolsillo_dinero)
+        {
+            cout << "El saldo no es suficiente para pasar dienro al bolsillo" << endl;
+            return;
+        }
+        p.setSaldo(p.getSaldo() - bolsillo_dinero);
+
+        int eleccion_2;
+        cout << "seleccione el bolsillo al que quiere pasar la plata: " << endl;
+        cout << "1- bolsillo 1" << endl
+             << "2- bolsillo 2" << endl
+             << "3- bolsillo 3" << endl;
+        cin >> eleccion_2;
+        switch (eleccion_2)
+        {
+        case 1:
+            p.setBolsillo(bolsillo_dinero, p.getBolsillo(1), p.getBolsillo(2));
+            break;
+
+        case 2:
+            p.setBolsillo(p.getBolsillo(0), bolsillo_dinero, p.getBolsillo(2));
+            break;
+
+        case 3:
+            p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), bolsillo_dinero);
+            break;
+
+        default:
+            break;
+        }
+        break;
+    case 2:
+
+        int eleccion_3;
+        cout << "seleccione el bolsillo del que quiere sacar la plata: " << endl;
+        cout << "1- bolsillo 1" << endl
+             << "2- bolsillo 2" << endl
+             << "3- bolsillo 3" << endl;
+        cin >> eleccion_3;
+
+        switch (eleccion_3)
+        {
+
+        case 1:
+            p.setSaldo(p.getSaldo() + p.getBolsillo(0));
+            p.setBolsillo(0, p.getBolsillo(1), p.getBolsillo(2));
+            cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
+            break;
+
+        case 2:
+            p.setSaldo(p.getSaldo() + p.getBolsillo(1));
+            p.setBolsillo(p.getBolsillo(0), 0, p.getBolsillo(2));
+            cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
+            break;
+
+        case 3:
+            p.setSaldo(p.getSaldo() + p.getBolsillo(2));
+            p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), 0);
+            cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
+            break;
+
+        default:
+            break;
+        }
+        break;
+    default:
+        break;
+    }
+}
 //______________________________________________________________________________________________________
 
 void menu_app(int long long usuario_logeado)
@@ -245,6 +337,7 @@ void menu_app(int long long usuario_logeado)
                 case 2:
                     break;
                 case 3:
+                    bolsillo(p);
                     break;
                 case 4:
                     recargar(p);

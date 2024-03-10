@@ -13,8 +13,8 @@ int main()
     usuario1.setNumeroCelular(3227027094);
     usuario1.setContrasena(1995);
     usuario1.setColchon(0);
-    usuario1.setMeta(0);
-    usuario1.setBolsillo(0);
+    usuario1.setMeta(0,0);
+    usuario1.setBolsillo(0,0,0);
     usuario1.setSaldo(0);
  
     lista_usuario.push_back(usuario1); // mete el usuario principal que damos por hecho que ya existe

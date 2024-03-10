@@ -7,8 +7,8 @@ private: // atributos de la clase
     int long long numero_celular;
     int contrasena;
     float colchon;
-    float meta;
-    float bolsillo;
+    float meta[2];
+    float bolsillo[3];
     float saldo;
 
 public:
@@ -48,14 +48,17 @@ public:
         this->colchon = colchon;
     }
 
-    void setMeta(float meta)
+    void setMeta(float m1, float m2)
     {
-        this->meta = meta;
+        meta[0] = m1;
+        meta[1] = m2;
     }
 
-    void setBolsillo(float bolsillo)
+    void setBolsillo(float b1, float b2, float b3)
     {
-        this->bolsillo = bolsillo;
+        bolsillo[0] = b1;
+        bolsillo[1] = b2;
+        bolsillo[2] = b3;
     }
 
     void setSaldo(float saldo)
@@ -78,13 +81,14 @@ public:
     {
         return colchon;
     }
-    float getMeta() const
+    float getMeta(int i) const
     {
-        return meta;
+        return meta[i];
+        
     }
-    float getBolsillo() const
+    float getBolsillo(int i)
     {
-        return bolsillo;
+        return bolsillo[i];
     }
     float getSaldo()
     {
