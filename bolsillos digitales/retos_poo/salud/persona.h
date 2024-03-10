@@ -130,23 +130,13 @@ public:
         return persona; // retorna el objeto
     }
 
-    void calcularmc(float peso, float estatura) // calcula masa corporal pasan peso y estatura como parametros
+    float calcularmc(float peso, float estatura) // calcula masa corporal pasan peso y estatura como parametros
     {
 
         float peso_final = peso / (estatura * estatura); // calcula masa corporal
+        return peso_final;
 
-        if (peso_final < 20) // hace el analisis del peso
-        {
-            cout << "peso debajo de lo ideal" << endl;
-        }
-        else if (peso_final <= 25 && peso_final > 20)
-        {
-            cout << "peso es ideal" << endl;
-        }
-        else
-        {
-            cout << "sobre peso" << endl;
-        }
+        
     }
 
     void mayorEdad(int edad) // metodo saber si es mayor de edad entra edad como parametro
@@ -187,9 +177,9 @@ public:
         }
 
         cout << "-------------------------------------------------- " << endl;
-        cout << "------------- segun su masa corporal:" << endl;
+      //  cout << "------------- segun su masa corporal:" << endl;
 
-        aux.calcularmc(aux.peso, aux.estatura); // instancia el metodo de masa corporal
+       // aux.calcularmc(aux.peso, aux.estatura); // instancia el metodo de masa corporal
 
         cout << "------------- segun su edad:" << endl;
         aux.mayorEdad(aux.edad); // instancia metodo de la mayoria de edad
