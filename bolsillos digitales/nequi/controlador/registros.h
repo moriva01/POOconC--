@@ -1,6 +1,7 @@
 #include "../modelo/usuario.h" // importa modelo (clase usuario)
 #include "../modelo/regalo.h"  // importa modelo (clase regalo)
 #include <vector>              //clase vector para poder usar listas dinamicas
+#include <algorithm>
 
 vector<usuario> lista_usuario;
 vector<regalo> lista_regalos;                                                                           // lista de tipo objeto para los usuarios
@@ -117,17 +118,22 @@ void recargar(usuario &p)
         static float saldo_aux3 = 0;
         cout << "digite su codigo de regalo: " << endl;
         cin >> codigo_regalo;
-        for (regalo q : lista_regalos) // recorre la lista
+
+        static auto it = find_if(lista_regalos.begin(), lista_regalos.end(),
+                                 [codigo_regalo](const regalo &q)
+                                 { return q.getCodigo() == codigo_regalo; });
+
+        if (it != lista_regalos.end())
         {
-
-            if (q.getCodigo() == codigo_regalo) // mira si el numero celular ya esta registrado
-            {
-                saldo_aux3 = q.getCantidad();
-                cout << "recarga exitosa" << endl;
-            }
+            saldo_aux3 = it->getCantidad();
+            p.setSaldo(p.getSaldo() + saldo_aux3);
+            cout << "recarga exitosa" << endl;
+            lista_regalos.erase(it);
         }
-        p.setSaldo(p.getSaldo() + saldo_aux3);
-
+        else
+        {
+            cout << "El codigo de regalo no es valido o ya ha sido utilizado." << endl;
+        }
         break;
 
     case 4:
@@ -139,16 +145,8 @@ void recargar(usuario &p)
     }
 }
 
-void enviar_plata(usuario &p, usuario &r, float monto)
+void enviar_plata(usuario &p, usuario &r, float monto, int eleccion)
 {
-
-    int eleccion;
-    cout << "seleccione la opcion para enviar dinero: " << endl;
-    cout << "1- A otro nequi" << endl;
-    cout << "2- Codigo de regalo" << endl;
-    cout << "3- Salir" << endl;
-    cin >> eleccion;
-
     switch (eleccion)
     {
     case 1:
@@ -162,33 +160,20 @@ void enviar_plata(usuario &p, usuario &r, float monto)
         r.setSaldo(r.getSaldo() + monto);
 
         break;
-        /*case 2:
-            static int aux22 = 0;
-            float auxiliar_saldo2;
-            cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
-            cin >> auxiliar_saldo2;
-            for (usuario p : lista_usuario) // recorre la lista
-            {
+    case 2:
+        static int aux22 = 0;
 
-                if (usuario_logeado == p.getNumeroDocumento()) // mira si el numero celular ya esta registrado
-                {
-                    if (p.getSaldo() < auxiliar_saldo2)
-                    {
-                        cout << "El saldo no es suficiente para generar el codigo" << endl;
-                    }
-                    else
-                    {
-                        float aux = p.getSaldo();
-                        aux -= auxiliar_saldo2;
-                        p.setSaldo(aux);
-                        aux22 = generar_codigos();
-                        cout << "codigo generado correctamente:" << aux22 << endl;
-                    }
-                    regalo aux(usuario_logeado, aux22, auxiliar_saldo);
-                    lista_regalos.push_back(aux);
-                }
-            }
-            break;*/
+        if (p.getSaldo() < monto)
+        {
+            cout << "El saldo no es suficiente para crear codigo" << endl;
+            return;
+        }
+        p.setSaldo(p.getSaldo() - monto);
+        aux22 = generar_codigos();
+        cout << "codigo generado correctamente ------------------------------------------------------------ " << aux22 << endl;
+        static regalo aux(p.getNumeroDocumento(), aux22, monto);
+        lista_regalos.push_back(aux);
+        break;
 
     case 3:
         return;
@@ -196,6 +181,24 @@ void enviar_plata(usuario &p, usuario &r, float monto)
     default:
         break;
     }
+}
+
+void sacar_plata(usuario &p)
+{
+
+    static int aux23 = 0;
+    float aux;
+    cout << "Digite la cantidad de dinero a retirar: " << endl;
+    cin >> aux;
+
+    if (p.getSaldo() < aux)
+    {
+        cout << "El saldo no es suficiente para crear codigo" << endl;
+        return;
+    }
+    aux23 = generar_codigos();
+    cout << "use este codigo para retirar -------------------------------------------------- " << aux23 << endl;
+    p.setSaldo(p.getSaldo() - aux);
 }
 
 //______________________________________________________________________________________________________
@@ -237,31 +240,50 @@ void menu_app(int long long usuario_logeado)
                     recargar(p);
                     break;
                 case 5:
+                    sacar_plata(p);
                     break;
                 case 6:
-                    int long long auxiliar_numero;
-                    cout << "digite el numero a enviar plata: " << endl;
-                    cin >> auxiliar_numero;
+                    static float auxiliar_saldo = 0;
                     static usuario *enviar = nullptr;
-                    for (usuario &q : lista_usuario) // encuentra el numero celular
+                    int eleccion;
+                    cout << "seleccione la opcion para enviar dinero: " << endl;
+                    cout << "1- A otro nequi" << endl;
+                    cout << "2- Codigo de regalo" << endl;
+                    cout << "3- Salir" << endl;
+                    cin >> eleccion;
+
+                    if (eleccion == 1)
                     {
-                        if (auxiliar_numero == q.getNumeroCelular())
+
+                        int long long auxiliar_numero;
+                        cout << "digite el numero a enviar plata: " << endl;
+                        cin >> auxiliar_numero;
+
+                        for (usuario &q : lista_usuario) // encuentra el numero celular
                         {
-                            enviar = &q;
-                            break;
+                            if (auxiliar_numero == q.getNumeroCelular())
+                            {
+                                enviar = &q;
+                                break;
+                            }
                         }
-                    }
 
-                    if (enviar == nullptr)
+                        if (enviar == nullptr)
+                        {
+                            cout << "El usuario no se encuentra registrado" << endl;
+                            return;
+                        }
+
+                        cout << "digite la cantidad de dinero a enviar: " << endl;
+                        cin >> auxiliar_saldo;
+                    }
+                    if (eleccion == 2)
                     {
-                        cout << "El usuario no se encuentra registrado" << endl;
-                        return;
+                        cout << "digite la cantidad de dinero a convertir en codigo: " << endl;
+                        cin >> auxiliar_saldo;
                     }
 
-                    float auxiliar_saldo;
-                    cout << "digite la cantidad de dinero a enviar: " << endl;
-                    cin >> auxiliar_saldo;
-                    enviar_plata(p, *enviar, auxiliar_saldo);
+                    enviar_plata(p, *enviar, auxiliar_saldo, eleccion);
                     break;
 
                 case 7:
