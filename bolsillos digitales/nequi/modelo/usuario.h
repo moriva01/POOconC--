@@ -6,10 +6,10 @@ class usuario : public persona // clase usuario
 private: // atributos de la clase
     int long long numero_celular;
     int contrasena;
-    float colchon;
     float meta[2];
     float bolsillo[3];
     float saldo;
+    int colchon;
 
 public:
     usuario() {} // constructor vacio
@@ -20,14 +20,15 @@ public:
         numero_celular = numero;
     }
 
+    void setColchon(int col)
+    {
+
+        colchon = col;
+    }
+
     void setContrasena(int contrasena)
     {
         this->contrasena = contrasena;
-    }
-
-    void setColchon(float colchon)
-    {
-        this->colchon = colchon;
     }
 
     void setMeta(float m1, float m2)
@@ -59,10 +60,6 @@ public:
         return contrasena;
     }
 
-    float getColchon() const
-    {
-        return colchon;
-    }
     float getMeta(int i) const
     {
         return meta[i];
@@ -74,5 +71,10 @@ public:
     float getSaldo()
     {
         return saldo;
+    }
+
+    int getColchon(){
+
+        return colchon;
     }
 };
