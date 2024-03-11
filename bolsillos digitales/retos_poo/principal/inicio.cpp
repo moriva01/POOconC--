@@ -1,12 +1,13 @@
 //                                                           ivan david moreno vargas
 
-//#include "../salud/persona.h"  //agregar la clase persona con todos sus metodos y atributos
+// #include "../salud/persona.h"  //agregar la clase persona con todos sus metodos y atributos
 #include "../salud/empleado.h" //agregar la clase empleado con todos sus metodos y atributos
 
 int main() // creamso el main aqui
 {
+    cout << "datos persona:  " << endl;
     persona persona1 = persona::pedirDatos(); // objeto persona1 va a ser lo que se haga en pedir datos
-   // empleado empleado1("cc",987654321,"juan","perez",45.0,1.50,25,false,"operario",8000,36,"IT");
+                                              // empleado empleado1("cc",987654321,"juan","perez",45.0,1.50,25,false,"operario",8000,36,"IT");
     cout << "------------------------------------------------------------------------------------- datos persona:" << endl;
     persona1.mostrarPersona(persona1); // mostrar persona toma el objeto persona 1 como parametro
 
@@ -24,24 +25,29 @@ int main() // creamso el main aqui
     {
         cout << "sobrepeso" << endl;
     }
-    cout<<"-------------------------------------------------------------------------------------------------------"<<endl;
+    cout << "----------------------------------------------------------------------------------- datos empleado:" << endl;
+    cout << "datos empleado:  " << endl;
+    empleado empleado1 = empleado ::pedirDatos();
+    empleado1.mostrarPersona(empleado1);
+    int a, b;
+    cout << "digite su año de nacimiento: " << endl;
+    cin >> a;
+    cout << "digite el año actual: " << endl;
+    cin >> b;
+    static int anio = empleado1.mayorEdad(a, b);
 
-    empleado empleado1;
-    empleado1.setTipoDoc("cc");
-    empleado1.setDocumento(987654321);
-    empleado1.setNombre("juan andres");
-    empleado1.setApellido("perez gomez");
-    empleado1.setCargo("operario");
-    empleado1.setHorasTrabajadas(36);
-    empleado1.setValorHora(8500);
+    if (anio >= 18) // revias sea mayor de edad
+    {
 
-    cout<<"empelado -----------------------"<<endl;
-    cout<<"-- "<<empleado1.getTipoDoc()<<"       - "<<empleado1.getDocumento()<<endl;
-    cout<<"-- Nombre: "<<empleado1.getNombre()<<" "<<empleado1.getApellido()<<endl;
-    cout<<"-- Cargo: "<<empleado1.getCargo()<<"     -- Horas trabajadas: "<<empleado1.getHorasTrabajadas()<<"    --Valor por hora: "<<empleado1.getValorHora()<<endl;
-    cout<<"-- Total a pagar: "<<empleado1.calcularHonorarios()<<endl;
+        cout << "--- mayor de edad" << endl;
+    }
+    else
+    {
 
+        cout << "--- menor de edad" << endl;
+    }
 
+    cout<<"Honorarios de la semana: "<<empleado1.calcularHonorarios();
 
     return 0;
 }
