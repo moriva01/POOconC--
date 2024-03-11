@@ -5,6 +5,7 @@
         "ostream": "cpp",
         "xstring": "cpp",
         "random": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "vector": "cpp"
     }
 }

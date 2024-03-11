@@ -1,13 +1,26 @@
-#include "../modelo/usuario.h" // importa modelo (clase usuario)
-#include "../modelo/regalo.h"  // importa modelo (clase regalo)
-#include "../modelo/colchon.h" // importa modelo (clase colchon)
-#include <vector>              //clase vector para poder usar listas dinamicas
-#include <algorithm>           // clase algotirmo para poder obtener id de una lista y luego borrarlo
+#include "../modelo/usuario.h"    // importa modelo (clase usuario)
+#include "../modelo/regalo.h"     // importa modelo (clase regalo)
+#include "../modelo/colchon.h"    // importa modelo (clase colchon)
+#include "../modelo/movimiento.h" // importa modelo (clase movimiento)
+#include <vector>                 //clase vector para poder usar listas dinamicas
+#include <algorithm>              // clase algotirmo para poder obtener id de una lista y luego borrarlo
 #include <string>
 
-vector<usuario> lista_usuario; // lista de tipo objeto de los usuarios
-vector<regalo> lista_regalos;  // lista de tipo objeto para los regalos
-vector<colchon> lista_colchon; // lista de tipo objeto para los colchones
+vector<usuario> lista_usuario;        // lista de tipo objeto de los usuarios
+vector<regalo> lista_regalos;         // lista de tipo objeto para los regalos
+vector<colchon> lista_colchon;        // lista de tipo objeto para los colchones
+vector<movimiento> lista_movimientos; // lista de tipo objeto para los colchones
+
+void generar_movimiento(int long long a, string b, float c) // genera los objetos de movimiento que agrega luego a la lista
+{
+
+    movimiento auxiliar_movs; // objeto auxiliar
+    auxiliar_movs.setIdCliente(a);
+    auxiliar_movs.setTipoMovimiento(b); // pide los datos
+    auxiliar_movs.setSaldoMovimiento(c);
+
+    lista_movimientos.push_back(auxiliar_movs); // lo agrega a la lista
+}
 
 void registrar_usuario() // metodo registrar suario
 {
@@ -110,6 +123,7 @@ void recargar(usuario &p) // metodo para recargar la cuenta del usuario
         cout << "Digite la cantidad de dinero a  recargar: " << endl;
         cin >> aux_r;                     // pide el dinero para hacer la recarga
         p.setSaldo(p.getSaldo() + aux_r); // lo actualiza en el saldo
+        generar_movimiento(p.getNumeroDocumento(), "recarga en efectivo (debito)", aux_r);
 
         break;
     case 2: // trasferencia bancaria
@@ -125,6 +139,7 @@ void recargar(usuario &p) // metodo para recargar la cuenta del usuario
         cout << "Digite la cantidad de dinero a  recargar: " << endl;
         cin >> aux_rr;                     // pide la cantidad para recargar
         p.setSaldo(p.getSaldo() + aux_rr); // actualiza el saldo
+        generar_movimiento(p.getNumeroDocumento(), "trasferencia bancaria (debito)", aux_rr);
         break;
     case 3: // codigo regalo
         int codigo_regalo;
@@ -147,6 +162,8 @@ void recargar(usuario &p) // metodo para recargar la cuenta del usuario
         {
             cout << "El codigo de regalo no es valido o ya ha sido utilizado." << endl; // dice si el codigo es invalido o ya se uso
         }
+
+        generar_movimiento(p.getNumeroDocumento(), "recarga con codigo (debito)", saldo_aux3);
         break;
 
     case 4:
@@ -171,6 +188,7 @@ void enviar_plata(usuario &p, usuario &r, float monto, int eleccion) // metodo e
 
         p.setSaldo(p.getSaldo() - monto); // lo saca de la cuneta saliente
         r.setSaldo(r.getSaldo() + monto); // lo pasa a la cuenta entrante
+        generar_movimiento(p.getNumeroDocumento(), "dienro enviado a otro nequi (credito)", monto);
 
         break;
     case 2:                   // genera los codigos para recargar
@@ -186,6 +204,8 @@ void enviar_plata(usuario &p, usuario &r, float monto, int eleccion) // metodo e
         cout << "codigo generado correctamente ------------------------------------------------------------ " << aux22 << endl;
         static regalo aux(p.getNumeroDocumento(), aux22, monto); // crea el objeto regalo
         lista_regalos.push_back(aux);                            // lo pasa a la lista
+
+        generar_movimiento(p.getNumeroDocumento(), "codigo de recarga generado (credito)", monto);
         break;
 
     case 3:
@@ -212,6 +232,8 @@ void sacar_plata(usuario &p) // metodo sacar plata
     aux23 = generar_codigos(); // genera un codigo para retirar
     cout << "use este codigo para retirar -------------------------------------------------- " << aux23 << endl;
     p.setSaldo(p.getSaldo() - aux); // actualiza el saldo
+
+    generar_movimiento(p.getNumeroDocumento(), "dinero retirado (credito)", aux);
 }
 
 void bolsillo(usuario &p) // metodo bolsillo
@@ -254,14 +276,17 @@ void bolsillo(usuario &p) // metodo bolsillo
         {
         case 1:
             p.setBolsillo(bolsillo_dinero, p.getBolsillo(1), p.getBolsillo(2)); // hace recarga bolsillo 1
+            generar_movimiento(p.getNumeroDocumento(), "dinero guardado bolsillo 1", bolsillo_dinero);
             break;
 
         case 2:
             p.setBolsillo(p.getBolsillo(0), bolsillo_dinero, p.getBolsillo(2)); // hace recarga bolsillo 2
+            generar_movimiento(p.getNumeroDocumento(), "dinero guardado bolsillo 2", bolsillo_dinero);
             break;
 
         case 3:
             p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), bolsillo_dinero); // hace recarga bolsillo 3
+            generar_movimiento(p.getNumeroDocumento(), "dinero guardado bolsillo 3", bolsillo_dinero);
             break;
 
         default:
@@ -284,18 +309,21 @@ void bolsillo(usuario &p) // metodo bolsillo
             p.setSaldo(p.getSaldo() + p.getBolsillo(0));          // actualiza el saldo
             p.setBolsillo(0, p.getBolsillo(1), p.getBolsillo(2)); // saca la plata bolsillo 1
             cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "dinero retirado bolsillo 1", p.getBolsillo(0));
             break;
 
         case 2:
             p.setSaldo(p.getSaldo() + p.getBolsillo(1));          // actualiza el saldo
             p.setBolsillo(p.getBolsillo(0), 0, p.getBolsillo(2)); // saca la plata bolsillo 2
             cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "dinero retirado bolsillo 2", p.getBolsillo(1));
             break;
 
         case 3:
             p.setSaldo(p.getSaldo() + p.getBolsillo(2));          // actualiza el saldo
             p.setBolsillo(p.getBolsillo(0), p.getBolsillo(1), 0); // saca la plata bolsillo 3
             cout << "la plata ya fue devuelta al saldo de tu cuenta" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "dinero retirado bolsillo 3", p.getBolsillo(2));
             break;
 
         default:
@@ -354,6 +382,7 @@ void meta(usuario &p) // metodo meta de ahorro
         p.setMeta(p.getMeta(0), (p.getMeta(1) + aux2)); // actualiza ahorro en la meta
 
         cout << "se paso la plata al la meta" << endl;
+        generar_movimiento(p.getNumeroDocumento(), "dinero guardado meta", aux2);
 
         break;
 
@@ -367,6 +396,8 @@ void meta(usuario &p) // metodo meta de ahorro
         p.setSaldo(p.getSaldo() + p.getMeta(1)); // pasa el dienro al saldo
         p.setMeta(0, 0);                         // pone la meta de nuevo en 0
         cout << "la plata ya fue devuelta al saldo de tu cuenta " << endl;
+
+        generar_movimiento(p.getNumeroDocumento(), "dinero retirado meta", p.getMeta(1));
 
         break;
     case 4:
@@ -419,6 +450,8 @@ void colchon_ahorro(usuario &p)
                     q.setSaldo(q.getSaldo() + cantidad);
                     p.setSaldo(p.getSaldo() - cantidad);
                     cout << "Saldo actualizado en colchón: " << q.getSaldo() << endl;
+
+                    generar_movimiento(p.getNumeroDocumento(), "dinero guardado colchon", cantidad);
                     break;
 
                 case 2:
@@ -490,6 +523,7 @@ void colchon_ahorro(usuario &p)
                             cout << "saldo desbloqueado correctamente" << endl;
                             q.setSaldo(0); // Después de retirar, saldo en el colchón se vuelve 0
                             cout << "Saldo en colchón después de retirar: " << q.getSaldo() << endl;
+                            generar_movimiento(p.getNumeroDocumento(), "dinero retirado colchon", q.getSaldo());
                         }
                         else
                         {
@@ -524,6 +558,24 @@ void colchon_ahorro(usuario &p)
         p.setColchon(1);
         cout << "colcon creado con exito, vuelva a entrar a su colchon" << endl;
     }
+}
+
+void lista_movimiento(usuario &p)
+{
+    cout << "-------------------------------------------------------------" << endl;
+    cout << "---  movimiento ------------------- valor movimiento --------" << endl;
+
+    for (movimiento &q : lista_movimientos)
+    {
+
+        if (p.getNumeroDocumento() == q.getIdCliente())
+        {
+
+            cout << " -- " << q.getTipoMovimiento() << " -- " << q.getSaldoMovimiento() << " -- " << endl;
+        }
+    }
+
+    cout << "-------------------------------------------------------------" << endl;
 }
 
 //______________________________________________________________________________________________________
@@ -615,6 +667,7 @@ void menu_app(int long long usuario_logeado) // metodo del menu del aplicativo
                     break;
 
                 case 7:
+                    lista_movimiento(p);
                     break;
 
                 case 8:
