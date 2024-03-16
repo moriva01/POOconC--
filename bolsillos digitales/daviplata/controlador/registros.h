@@ -151,25 +151,828 @@ void lista_movimiento(usuario &p)
     cout << "------------------------------------------------------------------------------------------------" << endl;
 }
 
+void recargas(usuario &p)
+{
+
+    int long long numero;
+    float valor;
+    int eleccion;
+    cout << "selecciona a alguno de nuestros aliados: " << endl;
+    cout << "1- claro" << endl
+         << "2- tigo" << endl
+         << "3- movistar" << endl
+         << "4-ETB" << endl
+         << "5- wom" << endl
+         << "6- salir" << endl;
+    cin >> eleccion;
+    int elec1, elec2;
+    switch (eleccion)
+    {
+    case 1:
+
+        cout << "bienvenido al aliado CLARO" << endl;
+        cout << "1- minutos" << endl
+             << "2- paquetes" << endl
+             << "3- salir" << endl;
+        cin >> elec1;
+        switch (elec1)
+        {
+        case 1:
+            cout << "digita el numero de celular para hacer la recarga: " << endl;
+            cin >> numero;
+            cout << "digita el valor de recarga que vas a hacer: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para hacer la recarga" << endl;
+                return;
+            }
+
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "recarga exitosa" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);
+            break;
+        case 2:
+            cout << "selecciona un paquete: " << endl;
+            cout << "1- paquete de 1 dia valor 3000" << endl
+                 << "2- paquete de 7 dias valor 6000" << endl
+                 << "3- paquete de 15 dias valor 11000" << endl
+                 << "4- paquete de 30 dias valor 20000" << endl
+                 << "5- salir" << endl;
+            cin >> elec2;
+
+            switch (elec2)
+            {
+            case 1:
+                if (p.getSaldo() < 3000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 3000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 3000);
+                break;
+
+            case 2:
+                if (p.getSaldo() < 6000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 6000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 6000);
+                break;
+
+            case 3:
+                if (p.getSaldo() < 11000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 11000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 11000);
+                break;
+
+            case 4:
+                if (p.getSaldo() < 20000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 20000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 20000);
+                break;
+
+            case 5:
+                return;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        case 3:
+            return;
+            break;
+
+        default:
+            break;
+        }
+        break;
+    case 2:
+        cout << "bienvenido al aliado TIGO" << endl;
+        cout << "1- minutos" << endl
+             << "2- paquetes" << endl
+             << "3- salir" << endl;
+        cin >> elec1;
+        switch (elec1)
+        {
+        case 1:
+            cout << "digita el numero de celular para hacer la recarga: " << endl;
+            cin >> numero;
+            cout << "digita el valor de recarga que vas a hacer: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para hacer la recarga" << endl;
+                return;
+            }
+
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "recarga exitosa" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);
+            break;
+        case 2:
+            cout << "selecciona un paquete: " << endl;
+            cout << "1- paquete de 1 dia valor 3000" << endl
+                 << "2- paquete de 7 dias valor 6000" << endl
+                 << "3- paquete de 15 dias valor 11000" << endl
+                 << "4- paquete de 30 dias valor 20000" << endl
+                 << "5- salir" << endl;
+            cin >> elec2;
+
+            switch (elec2)
+            {
+            case 1:
+                if (p.getSaldo() < 3000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 3000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 3000);
+                break;
+
+            case 2:
+                if (p.getSaldo() < 6000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 6000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 6000);
+                break;
+
+            case 3:
+                if (p.getSaldo() < 11000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 11000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 11000);
+                break;
+
+            case 4:
+                if (p.getSaldo() < 20000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 20000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 20000);
+                break;
+
+            case 5:
+                return;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        case 3:
+            return;
+            break;
+
+        default:
+            break;
+        }
+        break;
+    case 3:
+        cout << "bienvenido al aliado MOVISTAR" << endl;
+        cout << "1- minutos" << endl
+             << "2- paquetes" << endl
+             << "3- salir" << endl;
+        cin >> elec1;
+        switch (elec1)
+        {
+        case 1:
+            cout << "digita el numero de celular para hacer la recarga: " << endl;
+            cin >> numero;
+            cout << "digita el valor de recarga que vas a hacer: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para hacer la recarga" << endl;
+                return;
+            }
+
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "recarga exitosa" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);
+            break;
+        case 2:
+            cout << "selecciona un paquete: " << endl;
+            cout << "1- paquete de 1 dia valor 3000" << endl
+                 << "2- paquete de 7 dias valor 6000" << endl
+                 << "3- paquete de 15 dias valor 11000" << endl
+                 << "4- paquete de 30 dias valor 20000" << endl
+                 << "5- salir" << endl;
+            cin >> elec2;
+
+            switch (elec2)
+            {
+            case 1:
+                if (p.getSaldo() < 3000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 3000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 3000);
+                break;
+
+            case 2:
+                if (p.getSaldo() < 6000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 6000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 6000);
+                break;
+
+            case 3:
+                if (p.getSaldo() < 11000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 11000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 11000);
+                break;
+
+            case 4:
+                if (p.getSaldo() < 20000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 20000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 20000);
+                break;
+
+            case 5:
+                return;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        case 3:
+            return;
+            break;
+
+        default:
+            break;
+        }
+        break;
+    case 4:
+        cout << "bienvenido al aliado ETB" << endl;
+        cout << "1- minutos" << endl
+             << "2- paquetes" << endl
+             << "3- salir" << endl;
+        cin >> elec1;
+        switch (elec1)
+        {
+        case 1:
+            cout << "digita el numero de celular para hacer la recarga: " << endl;
+            cin >> numero;
+            cout << "digita el valor de recarga que vas a hacer: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para hacer la recarga" << endl;
+                return;
+            }
+
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "recarga exitosa" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);
+            break;
+        case 2:
+            cout << "selecciona un paquete: " << endl;
+            cout << "1- paquete de 1 dia valor 3000" << endl
+                 << "2- paquete de 7 dias valor 6000" << endl
+                 << "3- paquete de 15 dias valor 11000" << endl
+                 << "4- paquete de 30 dias valor 20000" << endl
+                 << "5- salir" << endl;
+            cin >> elec2;
+
+            switch (elec2)
+            {
+            case 1:
+                if (p.getSaldo() < 3000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 3000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 3000);
+                break;
+
+            case 2:
+                if (p.getSaldo() < 6000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 6000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 6000);
+                break;
+
+            case 3:
+                if (p.getSaldo() < 11000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 11000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 11000);
+                break;
+
+            case 4:
+                if (p.getSaldo() < 20000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 20000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 20000);
+                break;
+
+            case 5:
+                return;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        case 3:
+            return;
+            break;
+
+        default:
+            break;
+        }
+        break;
+    case 5:
+        cout << "bienvenido al aliado WOM" << endl;
+        cout << "1- minutos" << endl
+             << "2- paquetes" << endl
+             << "3- salir" << endl;
+        cin >> elec1;
+        switch (elec1)
+        {
+        case 1:
+            cout << "digita el numero de celular para hacer la recarga: " << endl;
+            cin >> numero;
+            cout << "digita el valor de recarga que vas a hacer: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para hacer la recarga" << endl;
+                return;
+            }
+
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "recarga exitosa" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);
+            break;
+        case 2:
+            cout << "selecciona un paquete: " << endl;
+            cout << "1- paquete de 1 dia valor 3000" << endl
+                 << "2- paquete de 7 dias valor 6000" << endl
+                 << "3- paquete de 15 dias valor 11000" << endl
+                 << "4- paquete de 30 dias valor 20000" << endl
+                 << "5- salir" << endl;
+            cin >> elec2;
+
+            switch (elec2)
+            {
+            case 1:
+                if (p.getSaldo() < 3000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 3000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 3000);
+                break;
+
+            case 2:
+                if (p.getSaldo() < 6000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 6000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 6000);
+                break;
+
+            case 3:
+                if (p.getSaldo() < 11000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 11000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 11000);
+                break;
+
+            case 4:
+                if (p.getSaldo() < 20000) // valida el saldo si s epuede sacar el dinero
+                {
+
+                    cout << "El saldo no es suficiente para comprar paquete" << endl;
+                    return;
+                }
+
+                p.setSaldo(p.getSaldo() - 20000);
+                cout << "compra de paquete exitosa" << endl;
+                generar_movimiento(p.getNumeroDocumento(), "recarga paquete celular", 20000);
+                break;
+
+            case 5:
+                return;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        case 3:
+            return;
+            break;
+
+        default:
+            break;
+        }
+        break;
+    case 6:
+        return;
+        break;
+
+    default:
+        break;
+    }
+}
+
 void pagos(usuario &p)
 {
-    int eleccion;
+    int eleccion, elec1;
     cout << "seleccione el servicio que quiere pagar: " << endl;
     cout << "1- servicio de electricidad" << endl
          << "2- television" << endl
          << "3- salud y donaciones" << endl
          << "4- salir" << endl;
     cin >> eleccion;
-
+    int long long n_referencia;
+    float valor;
     switch (eleccion)
     {
     case 1:
+        cout << "seleccione su proveedor de energia: " << endl;
+        cout << "1- Enel codensa" << endl
+             << "2- Caribesol de la costa" << endl
+             << "3- Emcali" << endl
+             << "4- Celsia tolima" << endl
+             << "5- salir" << endl;
+        cin >> elec1;
+
+        switch (elec1)
+        {
+        case 1:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de energia", valor);
+            break;
+
+        case 2:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de energia", valor);
+            break;
+
+        case 3:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de energia", valor);
+            break;
+
+        case 4:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de energia", valor);
+            break;
+
+        case 5:
+            return;
+            break;
+
+        default:
+            break;
+        }
         break;
 
     case 2:
+        cout << "seleccione su proveedor de television: " << endl;
+        cout << "1- Claro movil" << endl
+             << "2- Claro fijo" << endl
+             << "3- ETB" << endl
+             << "4- Tigo movil" << endl
+             << "5- salir" << endl;
+        cin >> elec1;
+
+        switch (elec1)
+        {
+        case 1:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de television", valor);
+            break;
+
+        case 2:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de television", valor);
+            break;
+
+        case 3:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de television", valor);
+            break;
+
+        case 4:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de television", valor);
+            break;
+
+        case 5:
+            return;
+            break;
+
+        default:
+            break;
+        }
         break;
 
     case 3:
+        cout << "seleccione su proveedor de salud: " << endl;
+        cout << "1- Colsanitas prepagada" << endl
+             << "2- Colmedica prepagada" << endl
+             << "3- Colpatria prepagada" << endl
+             << "4- EPS sanitas" << endl
+             << "5- salir" << endl;
+        cin >> elec1;
+
+        switch (elec1)
+        {
+        case 1:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de salud", valor);
+            break;
+
+        case 2:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de salud", valor);
+            break;
+
+        case 3:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de salud", valor);
+            break;
+
+        case 4:
+            cout << "digite su numero de referencia de pago: " << endl;
+            cin >> n_referencia;
+            cout << "digite el valor de pago del servicio: " << endl;
+            cin >> valor;
+
+            if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
+            {
+
+                cout << "El saldo no es suficiente para pagar el servicio" << endl;
+                return;
+            }
+            p.setSaldo(p.getSaldo() - valor);
+            cout << "servicio pagado exitosamente" << endl;
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de salud", valor);
+            break;
+
+        case 5:
+            return;
+            break;
+
+        default:
+            break;
+        }
         break;
 
     case 4:
@@ -210,11 +1013,11 @@ void menu_app(int long long usuario_logeado) // metodo del menu del aplicativo
                     recargar(p);
                     break;
                 case 2:
-
+                    pagos(p);
                     break;
 
                 case 3:
-
+                    recargas(p);
                     break;
                 case 4:
                     lista_movimiento(p);
