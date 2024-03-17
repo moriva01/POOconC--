@@ -1,11 +1,10 @@
 #include "../modelo/usuario.h"    // importa modelo (clase usuario)
 #include "../modelo/movimiento.h" // importa modelo (clase movimiento)
 #include <vector>                 //clase vector para poder usar listas dinamicas
-#include <algorithm>              // clase algotirmo para poder obtener id de una lista y luego borrarlo
 #include <string>
 
 vector<usuario> lista_usuario;        // lista de tipo objeto de los usuarios
-vector<movimiento> lista_movimientos; // lista de tipo objeto para los colchones
+vector<movimiento> lista_movimientos; // lista de tipo objeto para los movimientos
 
 void registrar_usuario() // metodo registrar suario
 {
@@ -133,7 +132,7 @@ void recargar(usuario &p) // metodo para recargar la cuenta del usuario
     }
 }
 
-void lista_movimiento(usuario &p)
+void lista_movimiento(usuario &p)//metodo que enlista los movimientos
 {
     cout << "------------------------------------------------------------------------------------------------" << endl;
     cout << "-------  movimiento --------------------------------------- valor movimiento -------------------" << endl;
@@ -141,23 +140,23 @@ void lista_movimiento(usuario &p)
     for (movimiento &q : lista_movimientos)
     {
 
-        if (p.getNumeroDocumento() == q.getIdCliente())
+        if (p.getNumeroDocumento() == q.getIdCliente())//filtra la lista por el id del cliente
         {
 
-            cout << " -- " << q.getTipoMovimiento() << " -- " << q.getSaldoMovimiento() << " -- " << endl;
+            cout << " -- " << q.getTipoMovimiento() << " -- " << q.getSaldoMovimiento() << " -- " << endl;//muestra la lista
         }
     }
 
     cout << "------------------------------------------------------------------------------------------------" << endl;
 }
 
-void recargas(usuario &p)
+void recargas(usuario &p)//metodo que hace recargas de celular
 {
 
     int long long numero;
     float valor;
     int eleccion;
-    cout << "selecciona a alguno de nuestros aliados: " << endl;
+    cout << "selecciona a alguno de nuestros aliados: " << endl;//proveedores movilwes
     cout << "1- claro" << endl
          << "2- tigo" << endl
          << "3- movistar" << endl
@@ -170,18 +169,18 @@ void recargas(usuario &p)
     {
     case 1:
 
-        cout << "bienvenido al aliado CLARO" << endl;
-        cout << "1- minutos" << endl
-             << "2- paquetes" << endl
+        cout << "bienvenido al aliado CLARO" << endl;//entra al menu del aliado
+        cout << "1- minutos" << endl//recargar minutos
+             << "2- paquetes" << endl//recargar paquetes
              << "3- salir" << endl;
         cin >> elec1;
         switch (elec1)
         {
         case 1:
             cout << "digita el numero de celular para hacer la recarga: " << endl;
-            cin >> numero;
+            cin >> numero;//pide numeoer de celular
             cout << "digita el valor de recarga que vas a hacer: " << endl;
-            cin >> valor;
+            cin >> valor;//pide valor de recarga
 
             if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
             {
@@ -190,12 +189,12 @@ void recargas(usuario &p)
                 return;
             }
 
-            p.setSaldo(p.getSaldo() - valor);
+            p.setSaldo(p.getSaldo() - valor);//saca el valor del saldo
             cout << "recarga exitosa" << endl;
-            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);
+            generar_movimiento(p.getNumeroDocumento(), "recarga minutos celular", valor);//crea el registro del movimiento
             break;
         case 2:
-            cout << "selecciona un paquete: " << endl;
+            cout << "selecciona un paquete: " << endl;//selecciona apquete para datos
             cout << "1- paquete de 1 dia valor 3000" << endl
                  << "2- paquete de 7 dias valor 6000" << endl
                  << "3- paquete de 15 dias valor 11000" << endl
@@ -205,7 +204,7 @@ void recargas(usuario &p)
 
             switch (elec2)
             {
-            case 1:
+            case 1://selecciona el paquete
                 if (p.getSaldo() < 3000) // valida el saldo si s epuede sacar el dinero
                 {
 
@@ -698,10 +697,10 @@ void recargas(usuario &p)
     }
 }
 
-void pagos(usuario &p)
+void pagos(usuario &p)//metodo pago de servicios
 {
     int eleccion, elec1;
-    cout << "seleccione el servicio que quiere pagar: " << endl;
+    cout << "seleccione el servicio que quiere pagar: " << endl;//selecciona una opcion de pago de servicio
     cout << "1- servicio de electricidad" << endl
          << "2- television" << endl
          << "3- salud y donaciones" << endl
@@ -712,7 +711,7 @@ void pagos(usuario &p)
     switch (eleccion)
     {
     case 1:
-        cout << "seleccione su proveedor de energia: " << endl;
+        cout << "seleccione su proveedor de energia: " << endl;//selecciona proveedor de energia
         cout << "1- Enel codensa" << endl
              << "2- Caribesol de la costa" << endl
              << "3- Emcali" << endl
@@ -724,9 +723,9 @@ void pagos(usuario &p)
         {
         case 1:
             cout << "digite su numero de referencia de pago: " << endl;
-            cin >> n_referencia;
+            cin >> n_referencia;//pide numero de referencia
             cout << "digite el valor de pago del servicio: " << endl;
-            cin >> valor;
+            cin >> valor;//pide valor del servicio
 
             if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
             {
@@ -734,9 +733,9 @@ void pagos(usuario &p)
                 cout << "El saldo no es suficiente para pagar el servicio" << endl;
                 return;
             }
-            p.setSaldo(p.getSaldo() - valor);
+            p.setSaldo(p.getSaldo() - valor);//elimina el valor del saldo
             cout << "servicio pagado exitosamente" << endl;
-            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de energia", valor);
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de energia", valor);//crea registro de movimiento
             break;
 
         case 2:
@@ -800,7 +799,7 @@ void pagos(usuario &p)
         break;
 
     case 2:
-        cout << "seleccione su proveedor de television: " << endl;
+        cout << "seleccione su proveedor de television: " << endl;//selecciona proveedor de television
         cout << "1- Claro movil" << endl
              << "2- Claro fijo" << endl
              << "3- ETB" << endl
@@ -812,9 +811,9 @@ void pagos(usuario &p)
         {
         case 1:
             cout << "digite su numero de referencia de pago: " << endl;
-            cin >> n_referencia;
+            cin >> n_referencia;//pide numero de referencia
             cout << "digite el valor de pago del servicio: " << endl;
-            cin >> valor;
+            cin >> valor;//pide valor del servicio
 
             if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
             {
@@ -822,9 +821,9 @@ void pagos(usuario &p)
                 cout << "El saldo no es suficiente para pagar el servicio" << endl;
                 return;
             }
-            p.setSaldo(p.getSaldo() - valor);
+            p.setSaldo(p.getSaldo() - valor);//saca el valor del saldo
             cout << "servicio pagado exitosamente" << endl;
-            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de television", valor);
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de television", valor);//genera el registro de movimiento
             break;
 
         case 2:
@@ -888,7 +887,7 @@ void pagos(usuario &p)
         break;
 
     case 3:
-        cout << "seleccione su proveedor de salud: " << endl;
+        cout << "seleccione su proveedor de salud: " << endl;//selecciona proveedor de salud
         cout << "1- Colsanitas prepagada" << endl
              << "2- Colmedica prepagada" << endl
              << "3- Colpatria prepagada" << endl
@@ -900,9 +899,9 @@ void pagos(usuario &p)
         {
         case 1:
             cout << "digite su numero de referencia de pago: " << endl;
-            cin >> n_referencia;
+            cin >> n_referencia;//referencia de pago del servicio
             cout << "digite el valor de pago del servicio: " << endl;
-            cin >> valor;
+            cin >> valor;//valor del servicio
 
             if (p.getSaldo() < valor) // valida el saldo si s epuede sacar el dinero
             {
@@ -910,9 +909,9 @@ void pagos(usuario &p)
                 cout << "El saldo no es suficiente para pagar el servicio" << endl;
                 return;
             }
-            p.setSaldo(p.getSaldo() - valor);
+            p.setSaldo(p.getSaldo() - valor);//saca el valor del saldo
             cout << "servicio pagado exitosamente" << endl;
-            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de salud", valor);
+            generar_movimiento(p.getNumeroDocumento(), "pago de servicio de salud", valor);//genera registro de movimiento
             break;
 
         case 2:
