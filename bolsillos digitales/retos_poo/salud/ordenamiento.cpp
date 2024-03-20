@@ -8,7 +8,7 @@ class cancion//clase cancion
 {
 
 private://atributos de la clase
-    string nombre;  // a -z
+    string nombre;  // a -z  -- busqueda mayor a 3 mins
     string artista; // z-a
     float duracion; // 1 a 3 mins
 
