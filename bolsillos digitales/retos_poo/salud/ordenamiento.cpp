@@ -1,19 +1,19 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <iostream>// parametodos de entrada y salida por teclado
+#include <vector> //para las lista
+#include <algorithm> //para poder hacer cosas con el lower (como si fuera el equalignorecase de java)
 
-using namespace std;
+using namespace std;//espacio de trabajo
 
-class cancion
+class cancion//clase cancion
 {
 
-private:
+private://atributos de la clase
     string nombre;  // a -z
     string artista; // z-a
     float duracion; // 1 a 3 mins
 
 public:
-    cancion() {}
+    cancion() {}//constructor vacio
 
     // Setter para nombre
     void setNombre(const string &n)
@@ -53,7 +53,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-struct Node
+struct Node//nodo lista enlazada
 {
     string nombre;
     string artista;
@@ -63,9 +63,9 @@ struct Node
     Node(const string &n, const string &a, float d) : nombre(n), artista(a), duracion(d), next(nullptr) {}
 };
 
-void imprimirListaEnlazada(Node *head)
+void imprimir_lista_enlazada(Node *head)//imprimir la lista enlazada
 {
-    cout << "Lista enlazada:" << endl;
+    cout << "Lista JAM Spotify:" << endl;
     while (head != nullptr)
     {
         cout << "Nombre: " << head->nombre << ", Artista: " << head->artista << ", Duración: " << head->duracion << endl;
@@ -75,47 +75,47 @@ void imprimirListaEnlazada(Node *head)
 
 //------------------------------------------------------------------------------
 
-bool compararPorNombre(const cancion &c1, const cancion &c2)
+bool comparar_nombre(const cancion &c1, const cancion &c2) //compara por nombre ordenamiento
 {
     return c1.getNombre() < c2.getNombre();
 }
 
-bool compararPorArtistaDesc(const cancion &c1, const cancion &c2)
+bool comparar_artista(const cancion &c1, const cancion &c2)//compara por artista ordenamiento
 {
     return c1.getArtista() > c2.getArtista();
 }
 
-bool compararPorDuracionAsc(const cancion &c1, const cancion &c2)
+bool comparar_duracion(const cancion &c1, const cancion &c2)//compara por duracion ordenamiento
 {
     return c1.getDuracion() < c2.getDuracion();
 }
 
 // -------------------------------------------------------------------------------
-void toLowerCase(string &str)
+void lower_case(string &str)//combierte todo en minusculas (para jhacer comparacion tipo equalignorecase de java)
 {
     transform(str.begin(), str.end(), str.begin(), [](unsigned char c)
               { return tolower(c); });
 }
 
-void registrar_cancion(vector<cancion> &lista, cancion &can)
+void registrar_cancion(vector<cancion> &lista, cancion &can)//registrar canciones
 {
 
     for (cancion &c : lista) // revisa si la cancion esta en la lista main
     {
 
-        string nombre1 = c.getNombre();
+        string nombre1 = c.getNombre();//toma los valores de la lista y el objeto
         string nombre2 = can.getNombre();
 
-        toLowerCase(nombre1);
-        toLowerCase(nombre2);
+        lower_case(nombre1);//los pasa a minusculas
+        lower_case(nombre2);
         string artista1 = c.getArtista();
         string artista2 = can.getArtista();
-        toLowerCase(artista1);
-        toLowerCase(artista2);
+        lower_case(artista1);
+        lower_case(artista2);
 
         if (nombre1 == nombre2 && artista1 == artista2)
         {
-            return;
+            return;//revisa si ya esta en la lsita main y no lo coloca
         }
     }
 
@@ -123,16 +123,16 @@ void registrar_cancion(vector<cancion> &lista, cancion &can)
     lista.push_back(can);
 }
 
-cancion crear_cancion()
+cancion crear_cancion()//crear un objeto cancion
 {
 
     string b, c;
     float d;
 
-    cancion aux;
+    cancion aux;//objeto auxiliar
 
     cout << "digite nombre cancion: " << endl;
-    cin >> b;
+    cin >> b;//pide los datos de la cancion
 
     cout << "digite artista cancion: " << endl;
     cin >> c;
@@ -140,24 +140,24 @@ cancion crear_cancion()
     cout << "digite duracion cancion: " << endl;
     cin >> d;
 
-    aux.setNombre(b);
+    aux.setNombre(b);//los pasa al objeto
     aux.setArtista(c);
     aux.setDuracion(d);
 
-    return aux;
+    return aux;//retorna el objeto
 }
 
 int main()
 {
 
-    vector<cancion> lista_cancion_main;
+    vector<cancion> lista_cancion_main;//listas de las canciones
     vector<cancion> lista_cancion_uno;
     vector<cancion> lista_cancion_dos;
-    Node *listaEnlazada = nullptr;
-    cancion nueva_cancion;
+    Node *listaEnlazada = nullptr;//lista enlazada
+    cancion nueva_cancion;//auxiliar de nueva canicon
     bool registro;
     int eleccion;
-    Node *newNode;
+    Node *newNode;//nodos de la lista enlazada
 
     while (true)
     {
@@ -172,8 +172,8 @@ int main()
         {
         case 1:
 
-            nueva_cancion = crear_cancion();
-            registrar_cancion(lista_cancion_main, nueva_cancion);
+            nueva_cancion = crear_cancion();//crea la cancion con el metodo de crear
+            registrar_cancion(lista_cancion_main, nueva_cancion);//lo pasa a registrar en el main
             int opcion;
             cout << "en qué lista deseas registrar la canción? (1 para lista uno, 2 para lista dos): " << endl;
             cin >> opcion;
@@ -181,11 +181,11 @@ int main()
             switch (opcion)
             {
             case 1:
-                lista_cancion_uno.push_back(nueva_cancion);
+                lista_cancion_uno.push_back(nueva_cancion);//registra lista 1
                 cout << "Canción registrada" << endl;
                 break;
             case 2:
-                lista_cancion_dos.push_back(nueva_cancion);
+                lista_cancion_dos.push_back(nueva_cancion);//registra lista 2
                 cout << "Canción registrada" << endl;
                 break;
             default:
@@ -193,7 +193,7 @@ int main()
                 break;
             }
             newNode = new Node(nueva_cancion.getNombre(), nueva_cancion.getArtista(), nueva_cancion.getDuracion());
-            newNode->next = listaEnlazada;
+            newNode->next = listaEnlazada;//registra lista enlazada
             listaEnlazada = newNode;
             break;
         case 2:
@@ -209,28 +209,28 @@ int main()
             {
             case 1:
 
-                sort(lista_cancion_main.begin(), lista_cancion_main.end(), compararPorNombre);
+                sort(lista_cancion_main.begin(), lista_cancion_main.end(), comparar_nombre);//organiza por nombre
 
                 cout << "Canciones ordenadas por nombre de la A a la Z:" << endl;
-                for (const cancion &c : lista_cancion_main)
+                for (const cancion &c : lista_cancion_main)//imprime la lista
                 {
                     cout << "Nombre: " << c.getNombre() << ", Artista: " << c.getArtista() << ", Duración: " << c.getDuracion() << endl;
                 }
                 break;
             case 2:
-                sort(lista_cancion_uno.begin(), lista_cancion_uno.end(), compararPorArtistaDesc);
+                sort(lista_cancion_uno.begin(), lista_cancion_uno.end(), comparar_artista);//organiza por artista
 
                 cout << "Canciones ordenadas por artista de la Z a la A:" << endl;
-                for (const cancion &c : lista_cancion_uno)
+                for (const cancion &c : lista_cancion_uno)//imprime la lista
                 {
                     cout << "Nombre: " << c.getNombre() << ", Artista: " << c.getArtista() << ", Duración: " << c.getDuracion() << endl;
                 }
                 break;
             case 3:
-                sort(lista_cancion_dos.begin(), lista_cancion_dos.end(), compararPorDuracionAsc);
+                sort(lista_cancion_dos.begin(), lista_cancion_dos.end(), comparar_duracion);//organiza por duracion
 
                 cout << "Canciones ordenadas por duración de 1 a 3 minutos:" << endl;
-                for (const cancion &c : lista_cancion_dos)
+                for (const cancion &c : lista_cancion_dos)//imprime la lsita
                 {
                     cout << "Nombre: " << c.getNombre() << ", Artista: " << c.getArtista() << ", Duración: " << c.getDuracion() << endl;
                 }
@@ -244,7 +244,15 @@ int main()
             }
             break;
         case 3:
-            imprimirListaEnlazada(listaEnlazada);
+            imprimir_lista_enlazada(listaEnlazada);//imprime lista JAM
+
+            Node *temp;
+            while (listaEnlazada != nullptr)//limpia el espacio de memoria
+            {
+                temp = listaEnlazada;
+                listaEnlazada = listaEnlazada->next;
+                delete temp;
+            }
             break;
         case 4:
             return 0;
